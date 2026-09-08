@@ -1,0 +1,3 @@
+# Core runtime versions used for the checked-in evaluation artifacts.
+numpy==2.4.6; python_version >= '3.11'
+sqlglot==30.8.0

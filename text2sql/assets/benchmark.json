@@ -1,0 +1,268 @@
+[
+  {
+    "id": "e01",
+    "difficulty": "easy",
+    "question": "List all customers from Canada. Return customer_id and name.",
+    "tables": [
+      "customers"
+    ],
+    "sql": "SELECT customer_id, name FROM customers WHERE country = 'Canada'",
+    "ordered": false
+  },
+  {
+    "id": "e02",
+    "difficulty": "easy",
+    "question": "How many customers are there? Return customer_count.",
+    "tables": [
+      "customers"
+    ],
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+    "ordered": false
+  },
+  {
+    "id": "e03",
+    "difficulty": "easy",
+    "question": "List products priced below 50. Return product_id, name and price.",
+    "tables": [
+      "products"
+    ],
+    "sql": "SELECT product_id, name, price FROM products WHERE price < 50",
+    "ordered": false
+  },
+  {
+    "id": "e04",
+    "difficulty": "easy",
+    "question": "List pending orders. Return order_id and order_date.",
+    "tables": [
+      "orders"
+    ],
+    "sql": "SELECT order_id, order_date FROM orders WHERE status = 'pending'",
+    "ordered": false
+  },
+  {
+    "id": "e05",
+    "difficulty": "easy",
+    "question": "List suppliers from Germany. Return supplier_id and name.",
+    "tables": [
+      "suppliers"
+    ],
+    "sql": "SELECT supplier_id, name FROM suppliers WHERE country = 'Germany'",
+    "ordered": false
+  },
+  {
+    "id": "e06",
+    "difficulty": "easy",
+    "question": "List all categories. Return category_id and name.",
+    "tables": [
+      "categories"
+    ],
+    "sql": "SELECT category_id, name FROM categories",
+    "ordered": false
+  },
+  {
+    "id": "e07",
+    "difficulty": "easy",
+    "question": "How many orders were placed in 2025? Return order_count.",
+    "tables": [
+      "orders"
+    ],
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2025-01-01' AND order_date < '2026-01-01'",
+    "ordered": false
+  },
+  {
+    "id": "e08",
+    "difficulty": "easy",
+    "question": "List products with stock below 10. Return product_id and stock.",
+    "tables": [
+      "products"
+    ],
+    "sql": "SELECT product_id, stock FROM products WHERE stock < 10",
+    "ordered": false
+  },
+  {
+    "id": "m01",
+    "difficulty": "medium",
+    "question": "Count customers per country. Return country and customer_count.",
+    "tables": [
+      "customers"
+    ],
+    "sql": "SELECT country, COUNT(*) AS customer_count FROM customers GROUP BY country",
+    "ordered": false
+  },
+  {
+    "id": "m02",
+    "difficulty": "medium",
+    "question": "List products with their category names. Return product_id, product name and category name.",
+    "tables": [
+      "products",
+      "categories"
+    ],
+    "sql": "SELECT p.product_id, p.name, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.category_id",
+    "ordered": false
+  },
+  {
+    "id": "m03",
+    "difficulty": "medium",
+    "question": "Count orders for every customer, including customers with no orders. Return customer_id, name and order_count.",
+    "tables": [
+      "customers",
+      "orders"
+    ],
+    "sql": "SELECT c.customer_id, c.name, COUNT(o.order_id) AS order_count FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name",
+    "ordered": false
+  },
+  {
+    "id": "m04",
+    "difficulty": "medium",
+    "question": "What is the total payment amount by payment method? Return method and total_amount rounded to two decimals.",
+    "tables": [
+      "payments"
+    ],
+    "sql": "SELECT method, ROUND(SUM(amount),2) AS total_amount FROM payments GROUP BY method",
+    "ordered": false
+  },
+  {
+    "id": "m05",
+    "difficulty": "medium",
+    "question": "List the five most expensive products. Return product_id, name and price, ordered by price descending, then product_id ascending.",
+    "tables": [
+      "products"
+    ],
+    "sql": "SELECT product_id, name, price FROM products ORDER BY price DESC, product_id LIMIT 5",
+    "ordered": true
+  },
+  {
+    "id": "m06",
+    "difficulty": "medium",
+    "question": "Calculate total revenue across all order items. Return revenue rounded to two decimals.",
+    "tables": [
+      "order_items"
+    ],
+    "sql": "SELECT ROUND(SUM(quantity*unit_price),2) AS revenue FROM order_items",
+    "ordered": false
+  },
+  {
+    "id": "m07",
+    "difficulty": "medium",
+    "question": "Count products supplied by each supplier, including suppliers without products. Return supplier_id and product_count.",
+    "tables": [
+      "suppliers",
+      "products"
+    ],
+    "sql": "SELECT s.supplier_id, COUNT(p.product_id) AS product_count FROM suppliers s LEFT JOIN products p ON p.supplier_id = s.supplier_id GROUP BY s.supplier_id",
+    "ordered": false
+  },
+  {
+    "id": "m08",
+    "difficulty": "medium",
+    "question": "Calculate the average catalog price per category. Return category_id, name and average_price rounded to two decimals.",
+    "tables": [
+      "categories",
+      "products"
+    ],
+    "sql": "SELECT c.category_id, c.name, ROUND(AVG(p.price),2) AS average_price FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name",
+    "ordered": false
+  },
+  {
+    "id": "h01",
+    "difficulty": "hard",
+    "question": "Find the five customers with highest revenue in 2025, excluding refunded orders. Return customer_id, name and revenue rounded to two decimals; sort revenue descending then customer_id ascending.",
+    "tables": [
+      "customers",
+      "orders",
+      "order_items"
+    ],
+    "sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+    "ordered": true
+  },
+  {
+    "id": "h02",
+    "difficulty": "hard",
+    "question": "Which category generated the highest revenue across all orders? Return category_id, name and revenue rounded to two decimals. Break ties by category_id ascending.",
+    "tables": [
+      "categories",
+      "products",
+      "order_items"
+    ],
+    "sql": "SELECT c.category_id,c.name,ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM categories c JOIN products p ON c.category_id=p.category_id JOIN order_items i ON p.product_id=i.product_id GROUP BY c.category_id,c.name ORDER BY revenue DESC,c.category_id LIMIT 1",
+    "ordered": true
+  },
+  {
+    "id": "h03",
+    "difficulty": "hard",
+    "question": "List customers who never placed an order. Return customer_id and name.",
+    "tables": [
+      "customers",
+      "orders"
+    ],
+    "sql": "SELECT c.customer_id,c.name FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id=c.customer_id)",
+    "ordered": false
+  },
+  {
+    "id": "h04",
+    "difficulty": "hard",
+    "question": "List products that have never been ordered. Return product_id and name.",
+    "tables": [
+      "products",
+      "order_items"
+    ],
+    "sql": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+    "ordered": false
+  },
+  {
+    "id": "h05",
+    "difficulty": "hard",
+    "question": "Calculate monthly revenue for completed orders in 2025. Return month as YYYY-MM and revenue rounded to two decimals, ordered by month.",
+    "tables": [
+      "orders",
+      "order_items"
+    ],
+    "sql": "SELECT strftime('%Y-%m',o.order_date) AS month, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY strftime('%Y-%m',o.order_date) ORDER BY month",
+    "ordered": true
+  },
+  {
+    "id": "h06",
+    "difficulty": "hard",
+    "question": "Find customers whose total spending across all orders exceeds the average spending of customers who have orders. Use a CTE. Return customer_id and revenue rounded to two decimals.",
+    "tables": [
+      "orders",
+      "order_items"
+    ],
+    "sql": "WITH spending AS (SELECT o.customer_id, SUM(i.quantity*i.unit_price) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id GROUP BY o.customer_id) SELECT customer_id, ROUND(revenue,2) AS revenue FROM spending WHERE revenue > (SELECT AVG(revenue) FROM spending)",
+    "ordered": false
+  },
+  {
+    "id": "h07",
+    "difficulty": "hard",
+    "question": "Find orders with at least two payments. Return order_id and payment_count.",
+    "tables": [
+      "payments"
+    ],
+    "sql": "SELECT order_id,COUNT(*) AS payment_count FROM payments GROUP BY order_id HAVING COUNT(*) >= 2",
+    "ordered": false
+  },
+  {
+    "id": "h08",
+    "difficulty": "hard",
+    "question": "Find completed orders where total payments do not equal line-item totals, allowing a difference of 0.01. Aggregate each separately using CTEs. Return order_id only.",
+    "tables": [
+      "orders",
+      "payments",
+      "order_items"
+    ],
+    "sql": "WITH lines AS (SELECT order_id,SUM(quantity*unit_price) AS total FROM order_items GROUP BY order_id), paid AS (SELECT order_id,SUM(amount) AS total FROM payments GROUP BY order_id) SELECT o.order_id FROM orders o JOIN lines l ON o.order_id=l.order_id LEFT JOIN paid p ON o.order_id=p.order_id WHERE o.status='completed' AND ABS(l.total-COALESCE(p.total,0)) > 0.01",
+    "ordered": false
+  },
+  {
+    "id": "h09",
+    "difficulty": "hard",
+    "question": "For each country of customers, count distinct products purchased in completed orders in 2025. Return country and product_count.",
+    "tables": [
+      "customers",
+      "orders",
+      "order_items"
+    ],
+    "sql": "SELECT c.country,COUNT(DISTINCT i.product_id) AS product_count FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY c.country",
+    "ordered": false
+  }
+]

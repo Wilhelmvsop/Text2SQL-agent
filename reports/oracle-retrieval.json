@@ -1,0 +1,6254 @@
+{
+  "mode": "oracle_replay_NOT_model_accuracy",
+  "status": "completed",
+  "created_at": "2026-09-07T17:52:03.743266+00:00",
+  "model": "fake-scripted",
+  "embedding": "hashing-8192-v1",
+  "full_schema": false,
+  "top_k": 4,
+  "fewshot_k": 3,
+  "max_retries": 3,
+  "prompt_version": "schema-grounded-v1",
+  "database_sha256": "efd6077d72dc435c7ed136c2ea2b7f5f161237630f38021fa227a784c4ae1411",
+  "benchmark_sha256": "5a1703a7397fc48cfe01a9eff851bd5bcb62ed42be09310f38398a7ec620f66a",
+  "environment": {
+    "python": "3.13.13",
+    "sqlite": "3.51.2",
+    "numpy": "2.4.6",
+    "sqlglot": "30.8.0"
+  },
+  "metrics": {
+    "total_questions": 25,
+    "first_pass_valid": 18,
+    "final_valid_queries": 23,
+    "self_correction_recovered": 5,
+    "initial_validation_failures": 7,
+    "execution_correct": 23,
+    "provider_failures": 0,
+    "first_pass_success_rate": 0.72,
+    "validation_success_rate": 0.92,
+    "self_correction_recovery_rate": 0.7142857142857143,
+    "execution_accuracy": 0.92,
+    "mean_schema_recall": 0.9666666666666667,
+    "mean_initial_prompt_chars": 3085.12,
+    "mean_total_prompt_chars": 4513.12,
+    "mean_generation_latency_seconds": 5.3086400293977935e-06,
+    "mean_end_to_end_latency_seconds": 0.002291226240049582,
+    "token_usage": null
+  },
+  "by_difficulty": {
+    "easy": {
+      "total_questions": 8,
+      "first_pass_valid": 6,
+      "final_valid_queries": 8,
+      "self_correction_recovered": 2,
+      "initial_validation_failures": 2,
+      "execution_correct": 8,
+      "provider_failures": 0,
+      "first_pass_success_rate": 0.75,
+      "validation_success_rate": 1.0,
+      "self_correction_recovery_rate": 1.0,
+      "execution_accuracy": 1.0,
+      "mean_schema_recall": 1.0,
+      "mean_initial_prompt_chars": 3079.75,
+      "mean_total_prompt_chars": 3839.25,
+      "mean_generation_latency_seconds": 4.199249985958886e-06,
+      "mean_end_to_end_latency_seconds": 0.0013551836249803273,
+      "token_usage": null
+    },
+    "medium": {
+      "total_questions": 8,
+      "first_pass_valid": 6,
+      "final_valid_queries": 8,
+      "self_correction_recovered": 2,
+      "initial_validation_failures": 2,
+      "execution_correct": 8,
+      "provider_failures": 0,
+      "first_pass_success_rate": 0.75,
+      "validation_success_rate": 1.0,
+      "self_correction_recovery_rate": 1.0,
+      "execution_accuracy": 1.0,
+      "mean_schema_recall": 1.0,
+      "mean_initial_prompt_chars": 3037.75,
+      "mean_total_prompt_chars": 3820.75,
+      "mean_generation_latency_seconds": 5.0548750323287095e-06,
+      "mean_end_to_end_latency_seconds": 0.0021952323750724645,
+      "token_usage": null
+    },
+    "hard": {
+      "total_questions": 9,
+      "first_pass_valid": 6,
+      "final_valid_queries": 7,
+      "self_correction_recovered": 1,
+      "initial_validation_failures": 3,
+      "execution_correct": 7,
+      "provider_failures": 0,
+      "first_pass_success_rate": 0.6666666666666666,
+      "validation_success_rate": 0.7777777777777778,
+      "self_correction_recovery_rate": 0.3333333333333333,
+      "execution_accuracy": 0.7777777777777778,
+      "mean_schema_recall": 0.9074074074074074,
+      "mean_initial_prompt_chars": 3132,
+      "mean_total_prompt_chars": 5727.555555555556,
+      "mean_generation_latency_seconds": 6.520333398738229e-06,
+      "mean_end_to_end_latency_seconds": 0.0032085920000908016,
+      "token_usage": null
+    }
+  },
+  "cases": [
+    {
+      "id": "e01",
+      "difficulty": "easy",
+      "question": "List all customers from Canada. Return customer_id and name.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": true,
+      "recovered": true,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 2574,
+      "total_prompt_chars": 5351,
+      "generation_latency": 8.568000339437276e-06,
+      "latency": 0.0016379530002268439,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "customer_id",
+          "name"
+        ],
+        "rows": [
+          [
+            5,
+            "Customer 005"
+          ],
+          [
+            10,
+            "Customer 010"
+          ],
+          [
+            15,
+            "Customer 015"
+          ],
+          [
+            20,
+            "Customer 020"
+          ],
+          [
+            25,
+            "Customer 025"
+          ],
+          [
+            30,
+            "Customer 030"
+          ],
+          [
+            35,
+            "Customer 035"
+          ],
+          [
+            40,
+            "Customer 040"
+          ],
+          [
+            45,
+            "Customer 045"
+          ],
+          [
+            50,
+            "Customer 050"
+          ],
+          [
+            55,
+            "Customer 055"
+          ],
+          [
+            60,
+            "Customer 060"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List all customers from Canada. Return customer_id and name.",
+        "trace_id": "bec01eefe5ef42caaf1e91a8210399bf",
+        "created_at": "2026-09-07T17:52:03.646461+00:00",
+        "retrieved_tables": [
+          "customers",
+          "categories",
+          "suppliers",
+          "orders"
+        ],
+        "retrieval_scores": {
+          "customers": 0.4472135954999579,
+          "categories": 0.282842712474619,
+          "suppliers": 0.282842712474619,
+          "orders": 0.22360679774997896
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.5163977794943223
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT missing_column FROM customers",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT missing_column FROM customers",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT missing_column FROM customers",
+              "error": "no such column: missing_column",
+              "error_type": "unknown_column",
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2574,
+            "generation_latency": 6.028999905538512e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT customer_id, name FROM customers WHERE country = 'Canada'",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'Canada'",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2777,
+            "generation_latency": 2.5390004338987637e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT customer_id, name FROM customers WHERE country = 'Canada'",
+        "execution_result": {
+          "columns": [
+            "customer_id",
+            "name"
+          ],
+          "rows": [
+            [
+              5,
+              "Customer 005"
+            ],
+            [
+              10,
+              "Customer 010"
+            ],
+            [
+              15,
+              "Customer 015"
+            ],
+            [
+              20,
+              "Customer 020"
+            ],
+            [
+              25,
+              "Customer 025"
+            ],
+            [
+              30,
+              "Customer 030"
+            ],
+            [
+              35,
+              "Customer 035"
+            ],
+            [
+              40,
+              "Customer 040"
+            ],
+            [
+              45,
+              "Customer 045"
+            ],
+            [
+              50,
+              "Customer 050"
+            ],
+            [
+              55,
+              "Customer 055"
+            ],
+            [
+              60,
+              "Customer 060"
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0016379530002268439,
+        "stage_latencies": {
+          "schema_retrieval": 0.00022966400001678267,
+          "fewshot_retrieval": 9.152000029644114e-05,
+          "generation_and_validation": 0.0008696380000401405,
+          "execution": 0.0004425529996296973
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "no such column: missing_column"
+        ]
+      }
+    },
+    {
+      "id": "e02",
+      "difficulty": "easy",
+      "question": "How many customers are there? Return customer_count.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3056,
+      "total_prompt_chars": 3056,
+      "generation_latency": 2.6859997888095677e-06,
+      "latency": 0.0010971839997182542,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "customer_count"
+        ],
+        "rows": [
+          [
+            60
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "How many customers are there? Return customer_count.",
+        "trace_id": "b6c67b70ed894af4849475fd0d4ce4a9",
+        "created_at": "2026-09-07T17:52:03.649511+00:00",
+        "retrieved_tables": [
+          "customers",
+          "orders",
+          "categories",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "customers": 0.125,
+          "orders": 0.125,
+          "categories": 0.0,
+          "order_items": 0.0
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.2886751345948129
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.0
+          },
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT COUNT(*) AS customer_count FROM customers",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT COUNT(*) AS customer_count FROM customers",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3056,
+            "generation_latency": 2.6859997888095677e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT COUNT(*) AS customer_count FROM customers",
+        "execution_result": {
+          "columns": [
+            "customer_count"
+          ],
+          "rows": [
+            [
+              60
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0010971839997182542,
+        "stage_latencies": {
+          "schema_retrieval": 0.0001334369999312912,
+          "fewshot_retrieval": 7.923700013634516e-05,
+          "generation_and_validation": 0.0004000569997515413,
+          "execution": 0.00048092300039570546
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "e03",
+      "difficulty": "easy",
+      "question": "List products priced below 50. Return product_id, name and price.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3281,
+      "total_prompt_chars": 3281,
+      "generation_latency": 2.980000317620579e-06,
+      "latency": 0.0013278169999466627,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "product_id",
+          "name",
+          "price"
+        ],
+        "rows": [
+          [
+            3,
+            "Product 003",
+            21.39
+          ],
+          [
+            17,
+            "Product 017",
+            25.82
+          ],
+          [
+            18,
+            "Product 018",
+            24.52
+          ],
+          [
+            24,
+            "Product 024",
+            22.39
+          ],
+          [
+            36,
+            "Product 036",
+            9.25
+          ],
+          [
+            53,
+            "Product 053",
+            33.47
+          ],
+          [
+            69,
+            "Product 069",
+            35.03
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List products priced below 50. Return product_id, name and price.",
+        "trace_id": "9e031b403b63429cae593b6c0c7e1395",
+        "created_at": "2026-09-07T17:52:03.651651+00:00",
+        "retrieved_tables": [
+          "categories",
+          "suppliers",
+          "products",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "categories": 0.33541019662496846,
+          "suppliers": 0.33541019662496846,
+          "products": 0.3086066999241838,
+          "order_items": 0.20801257358446093
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs8",
+              "question": "Which products cost more than the average catalog price?",
+              "tables": [
+                "products"
+              ],
+              "sql": "SELECT product_id, name FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY product_id"
+            },
+            "score": 0.26726124191242434
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.2041241452319315
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.15811388300841894
+          }
+        ],
+        "generated_sql": "SELECT product_id, name, price FROM products WHERE price < 50",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT product_id, name, price FROM products WHERE price < 50",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT product_id, name, price FROM products WHERE price < 50",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3281,
+            "generation_latency": 2.980000317620579e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT product_id, name, price FROM products WHERE price < 50",
+        "execution_result": {
+          "columns": [
+            "product_id",
+            "name",
+            "price"
+          ],
+          "rows": [
+            [
+              3,
+              "Product 003",
+              21.39
+            ],
+            [
+              17,
+              "Product 017",
+              25.82
+            ],
+            [
+              18,
+              "Product 018",
+              24.52
+            ],
+            [
+              24,
+              "Product 024",
+              22.39
+            ],
+            [
+              36,
+              "Product 036",
+              9.25
+            ],
+            [
+              53,
+              "Product 053",
+              33.47
+            ],
+            [
+              69,
+              "Product 069",
+              35.03
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0013278169999466627,
+        "stage_latencies": {
+          "schema_retrieval": 0.00017400200022166246,
+          "fewshot_retrieval": 0.00010327400013920851,
+          "generation_and_validation": 0.00048385300033260137,
+          "execution": 0.0005639139999402687
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "e04",
+      "difficulty": "easy",
+      "question": "List pending orders. Return order_id and order_date.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3122,
+      "total_prompt_chars": 3122,
+      "generation_latency": 3.8130001485114917e-06,
+      "latency": 0.0014089960000092105,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "order_id",
+          "order_date"
+        ],
+        "rows": [
+          [
+            4,
+            "2025-06-27"
+          ],
+          [
+            10,
+            "2025-08-08"
+          ],
+          [
+            22,
+            "2025-02-13"
+          ],
+          [
+            28,
+            "2025-05-08"
+          ],
+          [
+            31,
+            "2025-06-25"
+          ],
+          [
+            47,
+            "2026-03-21"
+          ],
+          [
+            53,
+            "2026-10-22"
+          ],
+          [
+            64,
+            "2025-08-11"
+          ],
+          [
+            67,
+            "2025-11-03"
+          ],
+          [
+            74,
+            "2026-11-22"
+          ],
+          [
+            87,
+            "2024-07-15"
+          ],
+          [
+            98,
+            "2026-10-15"
+          ],
+          [
+            105,
+            "2024-08-04"
+          ],
+          [
+            112,
+            "2025-02-23"
+          ],
+          [
+            134,
+            "2026-10-02"
+          ],
+          [
+            161,
+            "2026-08-03"
+          ],
+          [
+            164,
+            "2026-11-22"
+          ],
+          [
+            171,
+            "2024-02-15"
+          ],
+          [
+            176,
+            "2026-05-25"
+          ],
+          [
+            181,
+            "2025-05-22"
+          ],
+          [
+            192,
+            "2024-07-11"
+          ],
+          [
+            195,
+            "2024-12-03"
+          ],
+          [
+            201,
+            "2024-02-22"
+          ],
+          [
+            210,
+            "2024-04-10"
+          ],
+          [
+            217,
+            "2025-03-19"
+          ],
+          [
+            225,
+            "2024-12-01"
+          ],
+          [
+            234,
+            "2024-01-16"
+          ],
+          [
+            235,
+            "2025-01-28"
+          ],
+          [
+            238,
+            "2025-07-03"
+          ],
+          [
+            240,
+            "2024-06-21"
+          ],
+          [
+            246,
+            "2024-01-07"
+          ],
+          [
+            255,
+            "2024-04-19"
+          ],
+          [
+            256,
+            "2025-10-07"
+          ],
+          [
+            263,
+            "2026-07-06"
+          ],
+          [
+            281,
+            "2026-03-20"
+          ],
+          [
+            286,
+            "2025-03-22"
+          ],
+          [
+            320,
+            "2026-05-05"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List pending orders. Return order_id and order_date.",
+        "trace_id": "cf4e8e07085042ee821d567b8b7b4145",
+        "created_at": "2026-09-07T17:52:03.654530+00:00",
+        "retrieved_tables": [
+          "orders",
+          "payments",
+          "order_items",
+          "categories"
+        ],
+        "retrieval_scores": {
+          "orders": 0.375,
+          "payments": 0.2672612419124244,
+          "order_items": 0.19611613513818404,
+          "categories": 0.15811388300841897
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.2886751345948129
+          },
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.2886751345948129
+          },
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.2886751345948129
+          }
+        ],
+        "generated_sql": "SELECT order_id, order_date FROM orders WHERE status = 'pending'",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT order_id, order_date FROM orders WHERE status = 'pending'",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT order_id, order_date FROM orders WHERE status = 'pending'",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3122,
+            "generation_latency": 3.8130001485114917e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT order_id, order_date FROM orders WHERE status = 'pending'",
+        "execution_result": {
+          "columns": [
+            "order_id",
+            "order_date"
+          ],
+          "rows": [
+            [
+              4,
+              "2025-06-27"
+            ],
+            [
+              10,
+              "2025-08-08"
+            ],
+            [
+              22,
+              "2025-02-13"
+            ],
+            [
+              28,
+              "2025-05-08"
+            ],
+            [
+              31,
+              "2025-06-25"
+            ],
+            [
+              47,
+              "2026-03-21"
+            ],
+            [
+              53,
+              "2026-10-22"
+            ],
+            [
+              64,
+              "2025-08-11"
+            ],
+            [
+              67,
+              "2025-11-03"
+            ],
+            [
+              74,
+              "2026-11-22"
+            ],
+            [
+              87,
+              "2024-07-15"
+            ],
+            [
+              98,
+              "2026-10-15"
+            ],
+            [
+              105,
+              "2024-08-04"
+            ],
+            [
+              112,
+              "2025-02-23"
+            ],
+            [
+              134,
+              "2026-10-02"
+            ],
+            [
+              161,
+              "2026-08-03"
+            ],
+            [
+              164,
+              "2026-11-22"
+            ],
+            [
+              171,
+              "2024-02-15"
+            ],
+            [
+              176,
+              "2026-05-25"
+            ],
+            [
+              181,
+              "2025-05-22"
+            ],
+            [
+              192,
+              "2024-07-11"
+            ],
+            [
+              195,
+              "2024-12-03"
+            ],
+            [
+              201,
+              "2024-02-22"
+            ],
+            [
+              210,
+              "2024-04-10"
+            ],
+            [
+              217,
+              "2025-03-19"
+            ],
+            [
+              225,
+              "2024-12-01"
+            ],
+            [
+              234,
+              "2024-01-16"
+            ],
+            [
+              235,
+              "2025-01-28"
+            ],
+            [
+              238,
+              "2025-07-03"
+            ],
+            [
+              240,
+              "2024-06-21"
+            ],
+            [
+              246,
+              "2024-01-07"
+            ],
+            [
+              255,
+              "2024-04-19"
+            ],
+            [
+              256,
+              "2025-10-07"
+            ],
+            [
+              263,
+              "2026-07-06"
+            ],
+            [
+              281,
+              "2026-03-20"
+            ],
+            [
+              286,
+              "2025-03-22"
+            ],
+            [
+              320,
+              "2026-05-05"
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0014089960000092105,
+        "stage_latencies": {
+          "schema_retrieval": 0.00016396399996665423,
+          "fewshot_retrieval": 8.535500001016771e-05,
+          "generation_and_validation": 0.0006150070003059227,
+          "execution": 0.0005421509999905538
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "e05",
+      "difficulty": "easy",
+      "question": "List suppliers from Germany. Return supplier_id and name.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3104,
+      "total_prompt_chars": 3104,
+      "generation_latency": 2.822999704221729e-06,
+      "latency": 0.0011349139999765612,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "supplier_id",
+          "name"
+        ],
+        "rows": [
+          [
+            2,
+            "Supplier 2"
+          ],
+          [
+            7,
+            "Supplier 7"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List suppliers from Germany. Return supplier_id and name.",
+        "trace_id": "1b1bda5097d8464380a1faddd16930c1",
+        "created_at": "2026-09-07T17:52:03.657287+00:00",
+        "retrieved_tables": [
+          "suppliers",
+          "products",
+          "categories",
+          "customers"
+        ],
+        "retrieval_scores": {
+          "suppliers": 0.4242640687119285,
+          "products": 0.2927700218845599,
+          "categories": 0.282842712474619,
+          "customers": 0.22360679774997896
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT supplier_id, name FROM suppliers WHERE country = 'Germany'",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT supplier_id, name FROM suppliers WHERE country = 'Germany'",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT supplier_id, name FROM suppliers WHERE country = 'Germany'",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3104,
+            "generation_latency": 2.822999704221729e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT supplier_id, name FROM suppliers WHERE country = 'Germany'",
+        "execution_result": {
+          "columns": [
+            "supplier_id",
+            "name"
+          ],
+          "rows": [
+            [
+              2,
+              "Supplier 2"
+            ],
+            [
+              7,
+              "Supplier 7"
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0011349139999765612,
+        "stage_latencies": {
+          "schema_retrieval": 0.0001277999999729218,
+          "fewshot_retrieval": 7.832499977666885e-05,
+          "generation_and_validation": 0.00042476099997657,
+          "execution": 0.0005015470001126232
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "e06",
+      "difficulty": "easy",
+      "question": "List all categories. Return category_id and name.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": true,
+      "recovered": true,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3096,
+      "total_prompt_chars": 6395,
+      "generation_latency": 5.586999577644747e-06,
+      "latency": 0.001385989000027621,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "category_id",
+          "name"
+        ],
+        "rows": [
+          [
+            1,
+            "Electronics"
+          ],
+          [
+            2,
+            "Books"
+          ],
+          [
+            3,
+            "Home"
+          ],
+          [
+            4,
+            "Sports"
+          ],
+          [
+            5,
+            "Clothing"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List all categories. Return category_id and name.",
+        "trace_id": "528f3f9f28404bd696fdf1a83501a7d5",
+        "created_at": "2026-09-07T17:52:03.659084+00:00",
+        "retrieved_tables": [
+          "categories",
+          "products",
+          "suppliers",
+          "customers"
+        ],
+        "retrieval_scores": {
+          "categories": 0.565685424949238,
+          "products": 0.39036002917941326,
+          "suppliers": 0.282842712474619,
+          "customers": 0.22360679774997896
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.19999999999999998
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT missing_column FROM customers",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT missing_column FROM customers",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT missing_column FROM customers",
+              "error": "no such column: missing_column",
+              "error_type": "unknown_column",
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3096,
+            "generation_latency": 2.773999767669011e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT category_id, name FROM categories",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT category_id, name FROM categories",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3299,
+            "generation_latency": 2.812999809975736e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT category_id, name FROM categories",
+        "execution_result": {
+          "columns": [
+            "category_id",
+            "name"
+          ],
+          "rows": [
+            [
+              1,
+              "Electronics"
+            ],
+            [
+              2,
+              "Books"
+            ],
+            [
+              3,
+              "Home"
+            ],
+            [
+              4,
+              "Sports"
+            ],
+            [
+              5,
+              "Clothing"
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.001385989000027621,
+        "stage_latencies": {
+          "schema_retrieval": 0.00012572299965540878,
+          "fewshot_retrieval": 8.235399991463055e-05,
+          "generation_and_validation": 0.0007429939996654866,
+          "execution": 0.00043272099992464064
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "no such column: missing_column"
+        ]
+      }
+    },
+    {
+      "id": "e07",
+      "difficulty": "easy",
+      "question": "How many orders were placed in 2025? Return order_count.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3126,
+      "total_prompt_chars": 3126,
+      "generation_latency": 3.088000084972009e-06,
+      "latency": 0.0015227689996208937,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "order_count"
+        ],
+        "rows": [
+          [
+            120
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "How many orders were placed in 2025? Return order_count.",
+        "trace_id": "4853230d669344dcad2fccf1111b6b9f",
+        "created_at": "2026-09-07T17:52:03.661358+00:00",
+        "retrieved_tables": [
+          "payments",
+          "orders",
+          "order_items",
+          "categories"
+        ],
+        "retrieval_scores": {
+          "payments": 0.11952286093343936,
+          "orders": 0.11180339887498948,
+          "order_items": 0.08770580193070293,
+          "categories": 0.0
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.5163977794943223
+          },
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.25819888974716115
+          }
+        ],
+        "generated_sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2025-01-01' AND order_date < '2026-01-01'",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2025-01-01' AND order_date < '2026-01-01'",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2025-01-01' AND order_date < '2026-01-01'",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3126,
+            "generation_latency": 3.088000084972009e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2025-01-01' AND order_date < '2026-01-01'",
+        "execution_result": {
+          "columns": [
+            "order_count"
+          ],
+          "rows": [
+            [
+              120
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0015227689996208937,
+        "stage_latencies": {
+          "schema_retrieval": 0.00014872000019749976,
+          "fewshot_retrieval": 8.590300012656371e-05,
+          "generation_and_validation": 0.0005930580000494956,
+          "execution": 0.0006924600002093939
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "e08",
+      "difficulty": "easy",
+      "question": "List products with stock below 10. Return product_id and stock.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3279,
+      "total_prompt_chars": 3279,
+      "generation_latency": 4.048999926453689e-06,
+      "latency": 0.0013258470003165712,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "product_id",
+          "stock"
+        ],
+        "rows": [
+          [
+            11,
+            9
+          ],
+          [
+            32,
+            7
+          ],
+          [
+            35,
+            4
+          ],
+          [
+            40,
+            8
+          ],
+          [
+            77,
+            6
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List products with stock below 10. Return product_id and stock.",
+        "trace_id": "f3eb1c9524be433295a35e6b1fba47eb",
+        "created_at": "2026-09-07T17:52:03.663688+00:00",
+        "retrieved_tables": [
+          "products",
+          "categories",
+          "suppliers",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "products": 0.2672612419124244,
+          "categories": 0.25819888974716115,
+          "suppliers": 0.25819888974716115,
+          "order_items": 0.16012815380508716
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.2357022603955159
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.18257418583505539
+          },
+          {
+            "example": {
+              "id": "fs8",
+              "question": "Which products cost more than the average catalog price?",
+              "tables": [
+                "products"
+              ],
+              "sql": "SELECT product_id, name FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY product_id"
+            },
+            "score": 0.1543033499620919
+          }
+        ],
+        "generated_sql": "SELECT product_id, stock FROM products WHERE stock < 10",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT product_id, stock FROM products WHERE stock < 10",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT product_id, stock FROM products WHERE stock < 10",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3279,
+            "generation_latency": 4.048999926453689e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT product_id, stock FROM products WHERE stock < 10",
+        "execution_result": {
+          "columns": [
+            "product_id",
+            "stock"
+          ],
+          "rows": [
+            [
+              11,
+              9
+            ],
+            [
+              32,
+              7
+            ],
+            [
+              35,
+              4
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              77,
+              6
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0013258470003165712,
+        "stage_latencies": {
+          "schema_retrieval": 0.00016144500023074215,
+          "fewshot_retrieval": 9.701999988465104e-05,
+          "generation_and_validation": 0.0005105660002300283,
+          "execution": 0.0005543170000237296
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m01",
+      "difficulty": "medium",
+      "question": "Count customers per country. Return country and customer_count.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 2943,
+      "total_prompt_chars": 2943,
+      "generation_latency": 5.804000011266908e-06,
+      "latency": 0.002437175000068237,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "country",
+          "customer_count"
+        ],
+        "rows": [
+          [
+            "Canada",
+            12
+          ],
+          [
+            "France",
+            12
+          ],
+          [
+            "Germany",
+            12
+          ],
+          [
+            "Japan",
+            12
+          ],
+          [
+            "USA",
+            12
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Count customers per country. Return country and customer_count.",
+        "trace_id": "f74b27f2187d432481e724947961e366",
+        "created_at": "2026-09-07T17:52:03.665933+00:00",
+        "retrieved_tables": [
+          "customers",
+          "suppliers",
+          "payments",
+          "orders"
+        ],
+        "retrieval_scores": {
+          "customers": 0.22360679774997896,
+          "suppliers": 0.1414213562373095,
+          "payments": 0.11952286093343936,
+          "orders": 0.11180339887498948
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.0
+          },
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT country, COUNT(*) AS customer_count FROM customers GROUP BY country",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT country, COUNT(*) AS customer_count FROM customers GROUP BY country",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT country, COUNT(*) AS customer_count FROM customers GROUP BY country",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2943,
+            "generation_latency": 5.804000011266908e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT country, COUNT(*) AS customer_count FROM customers GROUP BY country",
+        "execution_result": {
+          "columns": [
+            "country",
+            "customer_count"
+          ],
+          "rows": [
+            [
+              "Canada",
+              12
+            ],
+            [
+              "France",
+              12
+            ],
+            [
+              "Germany",
+              12
+            ],
+            [
+              "Japan",
+              12
+            ],
+            [
+              "USA",
+              12
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.002437175000068237,
+        "stage_latencies": {
+          "schema_retrieval": 0.000185315000180708,
+          "fewshot_retrieval": 0.0002645019999363285,
+          "generation_and_validation": 0.0010823620000337542,
+          "execution": 0.0009007029998429061
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m02",
+      "difficulty": "medium",
+      "question": "List products with their category names. Return product_id, product name and category name.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3138,
+      "total_prompt_chars": 3138,
+      "generation_latency": 4.627000180335017e-06,
+      "latency": 0.0022280500002125336,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "product_id",
+          "name",
+          "category_name"
+        ],
+        "rows": [
+          [
+            1,
+            "Product 001",
+            "Books"
+          ],
+          [
+            2,
+            "Product 002",
+            "Home"
+          ],
+          [
+            3,
+            "Product 003",
+            "Sports"
+          ],
+          [
+            4,
+            "Product 004",
+            "Clothing"
+          ],
+          [
+            5,
+            "Product 005",
+            "Electronics"
+          ],
+          [
+            6,
+            "Product 006",
+            "Books"
+          ],
+          [
+            7,
+            "Product 007",
+            "Home"
+          ],
+          [
+            8,
+            "Product 008",
+            "Sports"
+          ],
+          [
+            9,
+            "Product 009",
+            "Clothing"
+          ],
+          [
+            10,
+            "Product 010",
+            "Electronics"
+          ],
+          [
+            11,
+            "Product 011",
+            "Books"
+          ],
+          [
+            12,
+            "Product 012",
+            "Home"
+          ],
+          [
+            13,
+            "Product 013",
+            "Sports"
+          ],
+          [
+            14,
+            "Product 014",
+            "Clothing"
+          ],
+          [
+            15,
+            "Product 015",
+            "Electronics"
+          ],
+          [
+            16,
+            "Product 016",
+            "Books"
+          ],
+          [
+            17,
+            "Product 017",
+            "Home"
+          ],
+          [
+            18,
+            "Product 018",
+            "Sports"
+          ],
+          [
+            19,
+            "Product 019",
+            "Clothing"
+          ],
+          [
+            20,
+            "Product 020",
+            "Electronics"
+          ],
+          [
+            21,
+            "Product 021",
+            "Books"
+          ],
+          [
+            22,
+            "Product 022",
+            "Home"
+          ],
+          [
+            23,
+            "Product 023",
+            "Sports"
+          ],
+          [
+            24,
+            "Product 024",
+            "Clothing"
+          ],
+          [
+            25,
+            "Product 025",
+            "Electronics"
+          ],
+          [
+            26,
+            "Product 026",
+            "Books"
+          ],
+          [
+            27,
+            "Product 027",
+            "Home"
+          ],
+          [
+            28,
+            "Product 028",
+            "Sports"
+          ],
+          [
+            29,
+            "Product 029",
+            "Clothing"
+          ],
+          [
+            30,
+            "Product 030",
+            "Electronics"
+          ],
+          [
+            31,
+            "Product 031",
+            "Books"
+          ],
+          [
+            32,
+            "Product 032",
+            "Home"
+          ],
+          [
+            33,
+            "Product 033",
+            "Sports"
+          ],
+          [
+            34,
+            "Product 034",
+            "Clothing"
+          ],
+          [
+            35,
+            "Product 035",
+            "Electronics"
+          ],
+          [
+            36,
+            "Product 036",
+            "Books"
+          ],
+          [
+            37,
+            "Product 037",
+            "Home"
+          ],
+          [
+            38,
+            "Product 038",
+            "Sports"
+          ],
+          [
+            39,
+            "Product 039",
+            "Clothing"
+          ],
+          [
+            40,
+            "Product 040",
+            "Electronics"
+          ],
+          [
+            41,
+            "Product 041",
+            "Books"
+          ],
+          [
+            42,
+            "Product 042",
+            "Home"
+          ],
+          [
+            43,
+            "Product 043",
+            "Sports"
+          ],
+          [
+            44,
+            "Product 044",
+            "Clothing"
+          ],
+          [
+            45,
+            "Product 045",
+            "Electronics"
+          ],
+          [
+            46,
+            "Product 046",
+            "Books"
+          ],
+          [
+            47,
+            "Product 047",
+            "Home"
+          ],
+          [
+            48,
+            "Product 048",
+            "Sports"
+          ],
+          [
+            49,
+            "Product 049",
+            "Clothing"
+          ],
+          [
+            50,
+            "Product 050",
+            "Electronics"
+          ],
+          [
+            51,
+            "Product 051",
+            "Books"
+          ],
+          [
+            52,
+            "Product 052",
+            "Home"
+          ],
+          [
+            53,
+            "Product 053",
+            "Sports"
+          ],
+          [
+            54,
+            "Product 054",
+            "Clothing"
+          ],
+          [
+            55,
+            "Product 055",
+            "Electronics"
+          ],
+          [
+            56,
+            "Product 056",
+            "Books"
+          ],
+          [
+            57,
+            "Product 057",
+            "Home"
+          ],
+          [
+            58,
+            "Product 058",
+            "Sports"
+          ],
+          [
+            59,
+            "Product 059",
+            "Clothing"
+          ],
+          [
+            60,
+            "Product 060",
+            "Electronics"
+          ],
+          [
+            61,
+            "Product 061",
+            "Books"
+          ],
+          [
+            62,
+            "Product 062",
+            "Home"
+          ],
+          [
+            63,
+            "Product 063",
+            "Sports"
+          ],
+          [
+            64,
+            "Product 064",
+            "Clothing"
+          ],
+          [
+            65,
+            "Product 065",
+            "Electronics"
+          ],
+          [
+            66,
+            "Product 066",
+            "Books"
+          ],
+          [
+            67,
+            "Product 067",
+            "Home"
+          ],
+          [
+            68,
+            "Product 068",
+            "Sports"
+          ],
+          [
+            69,
+            "Product 069",
+            "Clothing"
+          ],
+          [
+            70,
+            "Product 070",
+            "Electronics"
+          ],
+          [
+            71,
+            "Product 071",
+            "Books"
+          ],
+          [
+            72,
+            "Product 072",
+            "Home"
+          ],
+          [
+            73,
+            "Product 073",
+            "Sports"
+          ],
+          [
+            74,
+            "Product 074",
+            "Clothing"
+          ],
+          [
+            75,
+            "Product 075",
+            "Electronics"
+          ],
+          [
+            76,
+            "Product 076",
+            "Books"
+          ],
+          [
+            77,
+            "Product 077",
+            "Home"
+          ],
+          [
+            78,
+            "Product 078",
+            "Sports"
+          ],
+          [
+            79,
+            "Product 079",
+            "Clothing"
+          ],
+          [
+            80,
+            "Product 080",
+            "Electronics"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List products with their category names. Return product_id, product name and category name.",
+        "trace_id": "468c40bc5cd2450fba01aa4be7dd610c",
+        "created_at": "2026-09-07T17:52:03.669586+00:00",
+        "retrieved_tables": [
+          "categories",
+          "suppliers",
+          "products",
+          "customers"
+        ],
+        "retrieval_scores": {
+          "categories": 0.565685424949238,
+          "suppliers": 0.4242640687119285,
+          "products": 0.39036002917941326,
+          "customers": 0.22360679774997896
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.39999999999999997
+          },
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.25819888974716115
+          }
+        ],
+        "generated_sql": "SELECT p.product_id, p.name, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.category_id",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT p.product_id, p.name, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.category_id",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT p.product_id, p.name, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.category_id",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3138,
+            "generation_latency": 4.627000180335017e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT p.product_id, p.name, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.category_id",
+        "execution_result": {
+          "columns": [
+            "product_id",
+            "name",
+            "category_name"
+          ],
+          "rows": [
+            [
+              1,
+              "Product 001",
+              "Books"
+            ],
+            [
+              2,
+              "Product 002",
+              "Home"
+            ],
+            [
+              3,
+              "Product 003",
+              "Sports"
+            ],
+            [
+              4,
+              "Product 004",
+              "Clothing"
+            ],
+            [
+              5,
+              "Product 005",
+              "Electronics"
+            ],
+            [
+              6,
+              "Product 006",
+              "Books"
+            ],
+            [
+              7,
+              "Product 007",
+              "Home"
+            ],
+            [
+              8,
+              "Product 008",
+              "Sports"
+            ],
+            [
+              9,
+              "Product 009",
+              "Clothing"
+            ],
+            [
+              10,
+              "Product 010",
+              "Electronics"
+            ],
+            [
+              11,
+              "Product 011",
+              "Books"
+            ],
+            [
+              12,
+              "Product 012",
+              "Home"
+            ],
+            [
+              13,
+              "Product 013",
+              "Sports"
+            ],
+            [
+              14,
+              "Product 014",
+              "Clothing"
+            ],
+            [
+              15,
+              "Product 015",
+              "Electronics"
+            ],
+            [
+              16,
+              "Product 016",
+              "Books"
+            ],
+            [
+              17,
+              "Product 017",
+              "Home"
+            ],
+            [
+              18,
+              "Product 018",
+              "Sports"
+            ],
+            [
+              19,
+              "Product 019",
+              "Clothing"
+            ],
+            [
+              20,
+              "Product 020",
+              "Electronics"
+            ],
+            [
+              21,
+              "Product 021",
+              "Books"
+            ],
+            [
+              22,
+              "Product 022",
+              "Home"
+            ],
+            [
+              23,
+              "Product 023",
+              "Sports"
+            ],
+            [
+              24,
+              "Product 024",
+              "Clothing"
+            ],
+            [
+              25,
+              "Product 025",
+              "Electronics"
+            ],
+            [
+              26,
+              "Product 026",
+              "Books"
+            ],
+            [
+              27,
+              "Product 027",
+              "Home"
+            ],
+            [
+              28,
+              "Product 028",
+              "Sports"
+            ],
+            [
+              29,
+              "Product 029",
+              "Clothing"
+            ],
+            [
+              30,
+              "Product 030",
+              "Electronics"
+            ],
+            [
+              31,
+              "Product 031",
+              "Books"
+            ],
+            [
+              32,
+              "Product 032",
+              "Home"
+            ],
+            [
+              33,
+              "Product 033",
+              "Sports"
+            ],
+            [
+              34,
+              "Product 034",
+              "Clothing"
+            ],
+            [
+              35,
+              "Product 035",
+              "Electronics"
+            ],
+            [
+              36,
+              "Product 036",
+              "Books"
+            ],
+            [
+              37,
+              "Product 037",
+              "Home"
+            ],
+            [
+              38,
+              "Product 038",
+              "Sports"
+            ],
+            [
+              39,
+              "Product 039",
+              "Clothing"
+            ],
+            [
+              40,
+              "Product 040",
+              "Electronics"
+            ],
+            [
+              41,
+              "Product 041",
+              "Books"
+            ],
+            [
+              42,
+              "Product 042",
+              "Home"
+            ],
+            [
+              43,
+              "Product 043",
+              "Sports"
+            ],
+            [
+              44,
+              "Product 044",
+              "Clothing"
+            ],
+            [
+              45,
+              "Product 045",
+              "Electronics"
+            ],
+            [
+              46,
+              "Product 046",
+              "Books"
+            ],
+            [
+              47,
+              "Product 047",
+              "Home"
+            ],
+            [
+              48,
+              "Product 048",
+              "Sports"
+            ],
+            [
+              49,
+              "Product 049",
+              "Clothing"
+            ],
+            [
+              50,
+              "Product 050",
+              "Electronics"
+            ],
+            [
+              51,
+              "Product 051",
+              "Books"
+            ],
+            [
+              52,
+              "Product 052",
+              "Home"
+            ],
+            [
+              53,
+              "Product 053",
+              "Sports"
+            ],
+            [
+              54,
+              "Product 054",
+              "Clothing"
+            ],
+            [
+              55,
+              "Product 055",
+              "Electronics"
+            ],
+            [
+              56,
+              "Product 056",
+              "Books"
+            ],
+            [
+              57,
+              "Product 057",
+              "Home"
+            ],
+            [
+              58,
+              "Product 058",
+              "Sports"
+            ],
+            [
+              59,
+              "Product 059",
+              "Clothing"
+            ],
+            [
+              60,
+              "Product 060",
+              "Electronics"
+            ],
+            [
+              61,
+              "Product 061",
+              "Books"
+            ],
+            [
+              62,
+              "Product 062",
+              "Home"
+            ],
+            [
+              63,
+              "Product 063",
+              "Sports"
+            ],
+            [
+              64,
+              "Product 064",
+              "Clothing"
+            ],
+            [
+              65,
+              "Product 065",
+              "Electronics"
+            ],
+            [
+              66,
+              "Product 066",
+              "Books"
+            ],
+            [
+              67,
+              "Product 067",
+              "Home"
+            ],
+            [
+              68,
+              "Product 068",
+              "Sports"
+            ],
+            [
+              69,
+              "Product 069",
+              "Clothing"
+            ],
+            [
+              70,
+              "Product 070",
+              "Electronics"
+            ],
+            [
+              71,
+              "Product 071",
+              "Books"
+            ],
+            [
+              72,
+              "Product 072",
+              "Home"
+            ],
+            [
+              73,
+              "Product 073",
+              "Sports"
+            ],
+            [
+              74,
+              "Product 074",
+              "Clothing"
+            ],
+            [
+              75,
+              "Product 075",
+              "Electronics"
+            ],
+            [
+              76,
+              "Product 076",
+              "Books"
+            ],
+            [
+              77,
+              "Product 077",
+              "Home"
+            ],
+            [
+              78,
+              "Product 078",
+              "Sports"
+            ],
+            [
+              79,
+              "Product 079",
+              "Clothing"
+            ],
+            [
+              80,
+              "Product 080",
+              "Electronics"
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0022280500002125336,
+        "stage_latencies": {
+          "schema_retrieval": 0.00022320299967759638,
+          "fewshot_retrieval": 0.0001302900000155205,
+          "generation_and_validation": 0.0008232019999923068,
+          "execution": 0.001047787000061362
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m03",
+      "difficulty": "medium",
+      "question": "Count orders for every customer, including customers with no orders. Return customer_id, name and order_count.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": true,
+      "recovered": true,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 2624,
+      "total_prompt_chars": 5451,
+      "generation_latency": 7.686000117246294e-06,
+      "latency": 0.00285007599995879,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "customer_id",
+          "name",
+          "order_count"
+        ],
+        "rows": [
+          [
+            1,
+            "Customer 001",
+            5
+          ],
+          [
+            2,
+            "Customer 002",
+            4
+          ],
+          [
+            3,
+            "Customer 003",
+            8
+          ],
+          [
+            4,
+            "Customer 004",
+            2
+          ],
+          [
+            5,
+            "Customer 005",
+            11
+          ],
+          [
+            6,
+            "Customer 006",
+            9
+          ],
+          [
+            7,
+            "Customer 007",
+            7
+          ],
+          [
+            8,
+            "Customer 008",
+            7
+          ],
+          [
+            9,
+            "Customer 009",
+            9
+          ],
+          [
+            10,
+            "Customer 010",
+            7
+          ],
+          [
+            11,
+            "Customer 011",
+            7
+          ],
+          [
+            12,
+            "Customer 012",
+            5
+          ],
+          [
+            13,
+            "Customer 013",
+            6
+          ],
+          [
+            14,
+            "Customer 014",
+            4
+          ],
+          [
+            15,
+            "Customer 015",
+            3
+          ],
+          [
+            16,
+            "Customer 016",
+            8
+          ],
+          [
+            17,
+            "Customer 017",
+            7
+          ],
+          [
+            18,
+            "Customer 018",
+            13
+          ],
+          [
+            19,
+            "Customer 019",
+            9
+          ],
+          [
+            20,
+            "Customer 020",
+            4
+          ],
+          [
+            21,
+            "Customer 021",
+            9
+          ],
+          [
+            22,
+            "Customer 022",
+            4
+          ],
+          [
+            23,
+            "Customer 023",
+            5
+          ],
+          [
+            24,
+            "Customer 024",
+            7
+          ],
+          [
+            25,
+            "Customer 025",
+            4
+          ],
+          [
+            26,
+            "Customer 026",
+            9
+          ],
+          [
+            27,
+            "Customer 027",
+            12
+          ],
+          [
+            28,
+            "Customer 028",
+            5
+          ],
+          [
+            29,
+            "Customer 029",
+            6
+          ],
+          [
+            30,
+            "Customer 030",
+            5
+          ],
+          [
+            31,
+            "Customer 031",
+            6
+          ],
+          [
+            32,
+            "Customer 032",
+            7
+          ],
+          [
+            33,
+            "Customer 033",
+            5
+          ],
+          [
+            34,
+            "Customer 034",
+            5
+          ],
+          [
+            35,
+            "Customer 035",
+            6
+          ],
+          [
+            36,
+            "Customer 036",
+            8
+          ],
+          [
+            37,
+            "Customer 037",
+            5
+          ],
+          [
+            38,
+            "Customer 038",
+            1
+          ],
+          [
+            39,
+            "Customer 039",
+            7
+          ],
+          [
+            40,
+            "Customer 040",
+            7
+          ],
+          [
+            41,
+            "Customer 041",
+            6
+          ],
+          [
+            42,
+            "Customer 042",
+            14
+          ],
+          [
+            43,
+            "Customer 043",
+            6
+          ],
+          [
+            44,
+            "Customer 044",
+            5
+          ],
+          [
+            45,
+            "Customer 045",
+            5
+          ],
+          [
+            46,
+            "Customer 046",
+            5
+          ],
+          [
+            47,
+            "Customer 047",
+            8
+          ],
+          [
+            48,
+            "Customer 048",
+            7
+          ],
+          [
+            49,
+            "Customer 049",
+            5
+          ],
+          [
+            50,
+            "Customer 050",
+            5
+          ],
+          [
+            51,
+            "Customer 051",
+            10
+          ],
+          [
+            52,
+            "Customer 052",
+            7
+          ],
+          [
+            53,
+            "Customer 053",
+            7
+          ],
+          [
+            54,
+            "Customer 054",
+            4
+          ],
+          [
+            55,
+            "Customer 055",
+            8
+          ],
+          [
+            56,
+            "Customer 056",
+            0
+          ],
+          [
+            57,
+            "Customer 057",
+            0
+          ],
+          [
+            58,
+            "Customer 058",
+            0
+          ],
+          [
+            59,
+            "Customer 059",
+            0
+          ],
+          [
+            60,
+            "Customer 060",
+            0
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Count orders for every customer, including customers with no orders. Return customer_id, name and order_count.",
+        "trace_id": "01a168399c1246f290199ce0a7770e1c",
+        "created_at": "2026-09-07T17:52:03.675739+00:00",
+        "retrieved_tables": [
+          "customers",
+          "orders",
+          "categories",
+          "suppliers"
+        ],
+        "retrieval_scores": {
+          "customers": 0.25,
+          "orders": 0.25,
+          "categories": 0.21081851067789195,
+          "suppliers": 0.21081851067789195
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.3849001794597505
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.19245008972987526
+          }
+        ],
+        "generated_sql": "SELECT missing_column FROM customers",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT missing_column FROM customers",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT missing_column FROM customers",
+              "error": "no such column: missing_column",
+              "error_type": "unknown_column",
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2624,
+            "generation_latency": 4.705000264948467e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT c.customer_id, c.name, COUNT(o.order_id) AS order_count FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT c.customer_id, c.name, COUNT(o.order_id) AS order_count FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2827,
+            "generation_latency": 2.9809998522978276e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT c.customer_id, c.name, COUNT(o.order_id) AS order_count FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name",
+        "execution_result": {
+          "columns": [
+            "customer_id",
+            "name",
+            "order_count"
+          ],
+          "rows": [
+            [
+              1,
+              "Customer 001",
+              5
+            ],
+            [
+              2,
+              "Customer 002",
+              4
+            ],
+            [
+              3,
+              "Customer 003",
+              8
+            ],
+            [
+              4,
+              "Customer 004",
+              2
+            ],
+            [
+              5,
+              "Customer 005",
+              11
+            ],
+            [
+              6,
+              "Customer 006",
+              9
+            ],
+            [
+              7,
+              "Customer 007",
+              7
+            ],
+            [
+              8,
+              "Customer 008",
+              7
+            ],
+            [
+              9,
+              "Customer 009",
+              9
+            ],
+            [
+              10,
+              "Customer 010",
+              7
+            ],
+            [
+              11,
+              "Customer 011",
+              7
+            ],
+            [
+              12,
+              "Customer 012",
+              5
+            ],
+            [
+              13,
+              "Customer 013",
+              6
+            ],
+            [
+              14,
+              "Customer 014",
+              4
+            ],
+            [
+              15,
+              "Customer 015",
+              3
+            ],
+            [
+              16,
+              "Customer 016",
+              8
+            ],
+            [
+              17,
+              "Customer 017",
+              7
+            ],
+            [
+              18,
+              "Customer 018",
+              13
+            ],
+            [
+              19,
+              "Customer 019",
+              9
+            ],
+            [
+              20,
+              "Customer 020",
+              4
+            ],
+            [
+              21,
+              "Customer 021",
+              9
+            ],
+            [
+              22,
+              "Customer 022",
+              4
+            ],
+            [
+              23,
+              "Customer 023",
+              5
+            ],
+            [
+              24,
+              "Customer 024",
+              7
+            ],
+            [
+              25,
+              "Customer 025",
+              4
+            ],
+            [
+              26,
+              "Customer 026",
+              9
+            ],
+            [
+              27,
+              "Customer 027",
+              12
+            ],
+            [
+              28,
+              "Customer 028",
+              5
+            ],
+            [
+              29,
+              "Customer 029",
+              6
+            ],
+            [
+              30,
+              "Customer 030",
+              5
+            ],
+            [
+              31,
+              "Customer 031",
+              6
+            ],
+            [
+              32,
+              "Customer 032",
+              7
+            ],
+            [
+              33,
+              "Customer 033",
+              5
+            ],
+            [
+              34,
+              "Customer 034",
+              5
+            ],
+            [
+              35,
+              "Customer 035",
+              6
+            ],
+            [
+              36,
+              "Customer 036",
+              8
+            ],
+            [
+              37,
+              "Customer 037",
+              5
+            ],
+            [
+              38,
+              "Customer 038",
+              1
+            ],
+            [
+              39,
+              "Customer 039",
+              7
+            ],
+            [
+              40,
+              "Customer 040",
+              7
+            ],
+            [
+              41,
+              "Customer 041",
+              6
+            ],
+            [
+              42,
+              "Customer 042",
+              14
+            ],
+            [
+              43,
+              "Customer 043",
+              6
+            ],
+            [
+              44,
+              "Customer 044",
+              5
+            ],
+            [
+              45,
+              "Customer 045",
+              5
+            ],
+            [
+              46,
+              "Customer 046",
+              5
+            ],
+            [
+              47,
+              "Customer 047",
+              8
+            ],
+            [
+              48,
+              "Customer 048",
+              7
+            ],
+            [
+              49,
+              "Customer 049",
+              5
+            ],
+            [
+              50,
+              "Customer 050",
+              5
+            ],
+            [
+              51,
+              "Customer 051",
+              10
+            ],
+            [
+              52,
+              "Customer 052",
+              7
+            ],
+            [
+              53,
+              "Customer 053",
+              7
+            ],
+            [
+              54,
+              "Customer 054",
+              4
+            ],
+            [
+              55,
+              "Customer 055",
+              8
+            ],
+            [
+              56,
+              "Customer 056",
+              0
+            ],
+            [
+              57,
+              "Customer 057",
+              0
+            ],
+            [
+              58,
+              "Customer 058",
+              0
+            ],
+            [
+              59,
+              "Customer 059",
+              0
+            ],
+            [
+              60,
+              "Customer 060",
+              0
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.00285007599995879,
+        "stage_latencies": {
+          "schema_retrieval": 0.00020797900015168125,
+          "fewshot_retrieval": 0.00011687999995046994,
+          "generation_and_validation": 0.0013498349999281345,
+          "execution": 0.0011720489997060213
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "no such column: missing_column"
+        ]
+      }
+    },
+    {
+      "id": "m04",
+      "difficulty": "medium",
+      "question": "What is the total payment amount by payment method? Return method and total_amount rounded to two decimals.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 2534,
+      "total_prompt_chars": 2534,
+      "generation_latency": 4.499999704421498e-06,
+      "latency": 0.0020333639999989828,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "method",
+          "total_amount"
+        ],
+        "rows": [
+          [
+            "bank",
+            235498.52
+          ],
+          [
+            "card",
+            175478.44
+          ],
+          [
+            "paypal",
+            189933.86
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "What is the total payment amount by payment method? Return method and total_amount rounded to two decimals.",
+        "trace_id": "f61f40086ec14edb96018dca869f523b",
+        "created_at": "2026-09-07T17:52:03.681617+00:00",
+        "retrieved_tables": [
+          "payments",
+          "categories",
+          "customers",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "payments": 0.28347335475692037,
+          "categories": 0.0,
+          "customers": 0.0,
+          "order_items": 0.0
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT method, ROUND(SUM(amount),2) AS total_amount FROM payments GROUP BY method",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT method, ROUND(SUM(amount),2) AS total_amount FROM payments GROUP BY method",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT method, ROUND(SUM(amount),2) AS total_amount FROM payments GROUP BY method",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2534,
+            "generation_latency": 4.499999704421498e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT method, ROUND(SUM(amount),2) AS total_amount FROM payments GROUP BY method",
+        "execution_result": {
+          "columns": [
+            "method",
+            "total_amount"
+          ],
+          "rows": [
+            [
+              "bank",
+              235498.52
+            ],
+            [
+              "card",
+              175478.44
+            ],
+            [
+              "paypal",
+              189933.86
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0020333639999989828,
+        "stage_latencies": {
+          "schema_retrieval": 0.00020213699963278486,
+          "fewshot_retrieval": 0.00011009599984390661,
+          "generation_and_validation": 0.0008840380000947334,
+          "execution": 0.000833748999866657
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m05",
+      "difficulty": "medium",
+      "question": "List the five most expensive products. Return product_id, name and price, ordered by price descending, then product_id ascending.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3345,
+      "total_prompt_chars": 3345,
+      "generation_latency": 3.832999937003478e-06,
+      "latency": 0.0015589989998261444,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "product_id",
+          "name",
+          "price"
+        ],
+        "rows": [
+          [
+            4,
+            "Product 004",
+            490.98
+          ],
+          [
+            12,
+            "Product 012",
+            490.4
+          ],
+          [
+            9,
+            "Product 009",
+            487.65
+          ],
+          [
+            54,
+            "Product 054",
+            483.23
+          ],
+          [
+            27,
+            "Product 027",
+            474.25
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List the five most expensive products. Return product_id, name and price, ordered by price descending, then product_id ascending.",
+        "trace_id": "be0c7cd864c6423988c1cf55258adb73",
+        "created_at": "2026-09-07T17:52:03.684582+00:00",
+        "retrieved_tables": [
+          "categories",
+          "suppliers",
+          "products",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "categories": 0.30000000000000004,
+          "suppliers": 0.30000000000000004,
+          "products": 0.2760262237369417,
+          "order_items": 0.18605210188381271
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs8",
+              "question": "Which products cost more than the average catalog price?",
+              "tables": [
+                "products"
+              ],
+              "sql": "SELECT product_id, name FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY product_id"
+            },
+            "score": 0.23904572186687872
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.1825741858350554
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.1414213562373095
+          }
+        ],
+        "generated_sql": "SELECT product_id, name, price FROM products ORDER BY price DESC, product_id LIMIT 5",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT product_id, name, price FROM products ORDER BY price DESC, product_id LIMIT 5",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT product_id, name, price FROM products ORDER BY price DESC, product_id LIMIT 5",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3345,
+            "generation_latency": 3.832999937003478e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT product_id, name, price FROM products ORDER BY price DESC, product_id LIMIT 5",
+        "execution_result": {
+          "columns": [
+            "product_id",
+            "name",
+            "price"
+          ],
+          "rows": [
+            [
+              4,
+              "Product 004",
+              490.98
+            ],
+            [
+              12,
+              "Product 012",
+              490.4
+            ],
+            [
+              9,
+              "Product 009",
+              487.65
+            ],
+            [
+              54,
+              "Product 054",
+              483.23
+            ],
+            [
+              27,
+              "Product 027",
+              474.25
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0015589989998261444,
+        "stage_latencies": {
+          "schema_retrieval": 0.00021646799996233312,
+          "fewshot_retrieval": 0.0001040679999277927,
+          "generation_and_validation": 0.0006181930002640001,
+          "execution": 0.0006174569998620427
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m06",
+      "difficulty": "medium",
+      "question": "Calculate total revenue across all order items. Return revenue rounded to two decimals.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3157,
+      "total_prompt_chars": 3157,
+      "generation_latency": 4.010000338894315e-06,
+      "latency": 0.0015736170003037842,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "revenue"
+        ],
+        "rows": [
+          [
+            666645.14
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Calculate total revenue across all order items. Return revenue rounded to two decimals.",
+        "trace_id": "9e671ecdfd1447178546eb7467e4777b",
+        "created_at": "2026-09-07T17:52:03.687160+00:00",
+        "retrieved_tables": [
+          "order_items",
+          "payments",
+          "orders",
+          "categories"
+        ],
+        "retrieval_scores": {
+          "order_items": 0.18605210188381271,
+          "payments": 0.08451542547285167,
+          "orders": 0.07905694150420949,
+          "categories": 0.0
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.3651483716701108
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.1825741858350554
+          },
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.1825741858350554
+          }
+        ],
+        "generated_sql": "SELECT ROUND(SUM(quantity*unit_price),2) AS revenue FROM order_items",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT ROUND(SUM(quantity*unit_price),2) AS revenue FROM order_items",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT ROUND(SUM(quantity*unit_price),2) AS revenue FROM order_items",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3157,
+            "generation_latency": 4.010000338894315e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT ROUND(SUM(quantity*unit_price),2) AS revenue FROM order_items",
+        "execution_result": {
+          "columns": [
+            "revenue"
+          ],
+          "rows": [
+            [
+              666645.14
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0015736170003037842,
+        "stage_latencies": {
+          "schema_retrieval": 0.00018585399993753526,
+          "fewshot_retrieval": 9.531400019113789e-05,
+          "generation_and_validation": 0.0006088800000725314,
+          "execution": 0.0006806370001868345
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m07",
+      "difficulty": "medium",
+      "question": "Count products supplied by each supplier, including suppliers without products. Return supplier_id and product_count.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3333,
+      "total_prompt_chars": 3333,
+      "generation_latency": 3.626999841799261e-06,
+      "latency": 0.0018773010001496004,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "supplier_id",
+          "product_count"
+        ],
+        "rows": [
+          [
+            1,
+            10
+          ],
+          [
+            2,
+            10
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            4,
+            10
+          ],
+          [
+            5,
+            10
+          ],
+          [
+            6,
+            10
+          ],
+          [
+            7,
+            10
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Count products supplied by each supplier, including suppliers without products. Return supplier_id and product_count.",
+        "trace_id": "55412e5f2b824ebeadb5f0e75e4ee52b",
+        "created_at": "2026-09-07T17:52:03.689821+00:00",
+        "retrieved_tables": [
+          "suppliers",
+          "products",
+          "categories",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "suppliers": 0.33541019662496846,
+          "products": 0.23145502494313785,
+          "categories": 0.22360679774997896,
+          "order_items": 0.1386750490563073
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.6123724356957945
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.15811388300841894
+          },
+          {
+            "example": {
+              "id": "fs8",
+              "question": "Which products cost more than the average catalog price?",
+              "tables": [
+                "products"
+              ],
+              "sql": "SELECT product_id, name FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY product_id"
+            },
+            "score": 0.13363062095621217
+          }
+        ],
+        "generated_sql": "SELECT s.supplier_id, COUNT(p.product_id) AS product_count FROM suppliers s LEFT JOIN products p ON p.supplier_id = s.supplier_id GROUP BY s.supplier_id",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT s.supplier_id, COUNT(p.product_id) AS product_count FROM suppliers s LEFT JOIN products p ON p.supplier_id = s.supplier_id GROUP BY s.supplier_id",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT s.supplier_id, COUNT(p.product_id) AS product_count FROM suppliers s LEFT JOIN products p ON p.supplier_id = s.supplier_id GROUP BY s.supplier_id",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3333,
+            "generation_latency": 3.626999841799261e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT s.supplier_id, COUNT(p.product_id) AS product_count FROM suppliers s LEFT JOIN products p ON p.supplier_id = s.supplier_id GROUP BY s.supplier_id",
+        "execution_result": {
+          "columns": [
+            "supplier_id",
+            "product_count"
+          ],
+          "rows": [
+            [
+              1,
+              10
+            ],
+            [
+              2,
+              10
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              6,
+              10
+            ],
+            [
+              7,
+              10
+            ],
+            [
+              8,
+              10
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0018773010001496004,
+        "stage_latencies": {
+          "schema_retrieval": 0.00015570000005027396,
+          "fewshot_retrieval": 9.085300007427577e-05,
+          "generation_and_validation": 0.0007727360002718342,
+          "execution": 0.0008557670003028761
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "m08",
+      "difficulty": "medium",
+      "question": "Calculate the average catalog price per category. Return category_id, name and average_price rounded to two decimals.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": true,
+      "recovered": true,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3228,
+      "total_prompt_chars": 6665,
+      "generation_latency": 6.3520001276629046e-06,
+      "latency": 0.0030032770000616438,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "category_id",
+          "name",
+          "average_price"
+        ],
+        "rows": [
+          [
+            1,
+            "Electronics",
+            253.76
+          ],
+          [
+            2,
+            "Books",
+            228.0
+          ],
+          [
+            3,
+            "Home",
+            231.66
+          ],
+          [
+            4,
+            "Sports",
+            213.66
+          ],
+          [
+            5,
+            "Clothing",
+            258.07
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Calculate the average catalog price per category. Return category_id, name and average_price rounded to two decimals.",
+        "trace_id": "e4f2d6e9ee244bb58a27d016783c38ee",
+        "created_at": "2026-09-07T17:52:03.693087+00:00",
+        "retrieved_tables": [
+          "products",
+          "categories",
+          "suppliers",
+          "payments"
+        ],
+        "retrieval_scores": {
+          "products": 0.314970394174356,
+          "categories": 0.27386127875258315,
+          "suppliers": 0.1825741858350554,
+          "payments": 0.15430334996209194
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs8",
+              "question": "Which products cost more than the average catalog price?",
+              "tables": [
+                "products"
+              ],
+              "sql": "SELECT product_id, name FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY product_id"
+            },
+            "score": 0.3273268353539886
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.25819888974716115
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT missing_column FROM customers",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT missing_column FROM customers",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT missing_column FROM customers",
+              "error": "Table outside retrieved schema: customers",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3228,
+            "generation_latency": 4.558000000542961e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT c.category_id, c.name, ROUND(AVG(p.price),2) AS average_price FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT c.category_id, c.name, ROUND(AVG(p.price),2) AS average_price FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3437,
+            "generation_latency": 1.7940001271199435e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT c.category_id, c.name, ROUND(AVG(p.price),2) AS average_price FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name",
+        "execution_result": {
+          "columns": [
+            "category_id",
+            "name",
+            "average_price"
+          ],
+          "rows": [
+            [
+              1,
+              "Electronics",
+              253.76
+            ],
+            [
+              2,
+              "Books",
+              228.0
+            ],
+            [
+              3,
+              "Home",
+              231.66
+            ],
+            [
+              4,
+              "Sports",
+              213.66
+            ],
+            [
+              5,
+              "Clothing",
+              258.07
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0030032770000616438,
+        "stage_latencies": {
+          "schema_retrieval": 0.00015467000002900022,
+          "fewshot_retrieval": 9.310799987360951e-05,
+          "generation_and_validation": 0.001431140000022424,
+          "execution": 0.0013200240000514896
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "Table outside retrieved schema: customers"
+        ]
+      }
+    },
+    {
+      "id": "h01",
+      "difficulty": "hard",
+      "question": "Find the five customers with highest revenue in 2025, excluding refunded orders. Return customer_id, name and revenue rounded to two decimals; sort revenue descending then customer_id ascending.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": false,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": false,
+      "schema_recall": 0.6666666666666666,
+      "initial_prompt_chars": 2708,
+      "total_prompt_chars": 12413,
+      "generation_latency": 1.401899999109446e-05,
+      "latency": 0.004339737999998761,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "customer_id",
+          "name",
+          "revenue"
+        ],
+        "rows": [
+          [
+            18,
+            "Customer 018",
+            12844.69
+          ],
+          [
+            5,
+            "Customer 005",
+            11017.68
+          ],
+          [
+            6,
+            "Customer 006",
+            10278.26
+          ],
+          [
+            27,
+            "Customer 027",
+            9174.73
+          ],
+          [
+            28,
+            "Customer 028",
+            7371.41
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Find the five customers with highest revenue in 2025, excluding refunded orders. Return customer_id, name and revenue rounded to two decimals; sort revenue descending then customer_id ascending.",
+        "trace_id": "9142aabd7c79441eb9842891fbd6865e",
+        "created_at": "2026-09-07T17:52:03.698508+00:00",
+        "retrieved_tables": [
+          "orders",
+          "customers",
+          "categories",
+          "suppliers"
+        ],
+        "retrieval_scores": {
+          "orders": 0.2581988897471611,
+          "customers": 0.19364916731037082,
+          "categories": 0.1632993161855452,
+          "suppliers": 0.1632993161855452
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.29814239699997197
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.14907119849998599
+          }
+        ],
+        "generated_sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 2708,
+            "generation_latency": 4.400999841891462e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3235,
+            "generation_latency": 3.3240003176615573e-06,
+            "usage": {}
+          },
+          {
+            "number": 3,
+            "raw_output": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3235,
+            "generation_latency": 2.961000063805841e-06,
+            "usage": {}
+          },
+          {
+            "number": 4,
+            "raw_output": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id,c.name ORDER BY revenue DESC,c.customer_id LIMIT 5",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3235,
+            "generation_latency": 3.3329997677356005e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": null,
+        "execution_result": null,
+        "latency": 0.004339737999998761,
+        "stage_latencies": {
+          "schema_retrieval": 0.00021601699972961796,
+          "fewshot_retrieval": 0.00011724300020432565,
+          "generation_and_validation": 0.004001880000032543
+        },
+        "token_usage": {},
+        "error": "Table outside retrieved schema: order_items",
+        "status": "validation_failed",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "Table outside retrieved schema: order_items",
+          "Table outside retrieved schema: order_items",
+          "Table outside retrieved schema: order_items",
+          "Table outside retrieved schema: order_items"
+        ]
+      }
+    },
+    {
+      "id": "h02",
+      "difficulty": "hard",
+      "question": "Which category generated the highest revenue across all orders? Return category_id, name and revenue rounded to two decimals. Break ties by category_id ascending.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3378,
+      "total_prompt_chars": 3378,
+      "generation_latency": 4.675999662140384e-06,
+      "latency": 0.0034066970001731534,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "category_id",
+          "name",
+          "revenue"
+        ],
+        "rows": [
+          [
+            5,
+            "Clothing",
+            159059.63
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Which category generated the highest revenue across all orders? Return category_id, name and revenue rounded to two decimals. Break ties by category_id ascending.",
+        "trace_id": "0d8d3e80bb204bd8913bfd73e06be75c",
+        "created_at": "2026-09-07T17:52:03.704989+00:00",
+        "retrieved_tables": [
+          "categories",
+          "products",
+          "suppliers",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "categories": 0.253546276418555,
+          "products": 0.1749635530559413,
+          "suppliers": 0.16903085094570333,
+          "order_items": 0.15724272550828777
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.11952286093343936
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.0
+          },
+          {
+            "example": {
+              "id": "fs8",
+              "question": "Which products cost more than the average catalog price?",
+              "tables": [
+                "products"
+              ],
+              "sql": "SELECT product_id, name FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY product_id"
+            },
+            "score": 0.0
+          }
+        ],
+        "generated_sql": "SELECT c.category_id,c.name,ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM categories c JOIN products p ON c.category_id=p.category_id JOIN order_items i ON p.product_id=i.product_id GROUP BY c.category_id,c.name ORDER BY revenue DESC,c.category_id LIMIT 1",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT c.category_id,c.name,ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM categories c JOIN products p ON c.category_id=p.category_id JOIN order_items i ON p.product_id=i.product_id GROUP BY c.category_id,c.name ORDER BY revenue DESC,c.category_id LIMIT 1",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT c.category_id,c.name,ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM categories c JOIN products p ON c.category_id=p.category_id JOIN order_items i ON p.product_id=i.product_id GROUP BY c.category_id,c.name ORDER BY revenue DESC,c.category_id LIMIT 1",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3378,
+            "generation_latency": 4.675999662140384e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT c.category_id,c.name,ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM categories c JOIN products p ON c.category_id=p.category_id JOIN order_items i ON p.product_id=i.product_id GROUP BY c.category_id,c.name ORDER BY revenue DESC,c.category_id LIMIT 1",
+        "execution_result": {
+          "columns": [
+            "category_id",
+            "name",
+            "revenue"
+          ],
+          "rows": [
+            [
+              5,
+              "Clothing",
+              159059.63
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0034066970001731534,
+        "stage_latencies": {
+          "schema_retrieval": 0.00018993200001204968,
+          "fewshot_retrieval": 0.00013908399978390662,
+          "generation_and_validation": 0.0014880949997859716,
+          "execution": 0.0015860660000726057
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "h03",
+      "difficulty": "hard",
+      "question": "List customers who never placed an order. Return customer_id and name.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 2584,
+      "total_prompt_chars": 2584,
+      "generation_latency": 4.058000286022434e-06,
+      "latency": 0.002061576999949466,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "customer_id",
+          "name"
+        ],
+        "rows": [
+          [
+            56,
+            "Customer 056"
+          ],
+          [
+            57,
+            "Customer 057"
+          ],
+          [
+            58,
+            "Customer 058"
+          ],
+          [
+            59,
+            "Customer 059"
+          ],
+          [
+            60,
+            "Customer 060"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List customers who never placed an order. Return customer_id and name.",
+        "trace_id": "79cbc97b5adc425ea10f9daa3045c656",
+        "created_at": "2026-09-07T17:52:03.709610+00:00",
+        "retrieved_tables": [
+          "customers",
+          "orders",
+          "categories",
+          "suppliers"
+        ],
+        "retrieval_scores": {
+          "customers": 0.28347335475692037,
+          "orders": 0.28347335475692037,
+          "categories": 0.23904572186687872,
+          "suppliers": 0.23904572186687872
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.4364357804719848
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.4364357804719848
+          }
+        ],
+        "generated_sql": "SELECT c.customer_id,c.name FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id=c.customer_id)",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT c.customer_id,c.name FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id=c.customer_id)",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT c.customer_id,c.name FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id=c.customer_id)",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 2584,
+            "generation_latency": 4.058000286022434e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT c.customer_id,c.name FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id=c.customer_id)",
+        "execution_result": {
+          "columns": [
+            "customer_id",
+            "name"
+          ],
+          "rows": [
+            [
+              56,
+              "Customer 056"
+            ],
+            [
+              57,
+              "Customer 057"
+            ],
+            [
+              58,
+              "Customer 058"
+            ],
+            [
+              59,
+              "Customer 059"
+            ],
+            [
+              60,
+              "Customer 060"
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.002061576999949466,
+        "stage_latencies": {
+          "schema_retrieval": 0.0001772069999788073,
+          "fewshot_retrieval": 9.159900037047919e-05,
+          "generation_and_validation": 0.0007525420001002203,
+          "execution": 0.0010367180002504028
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "h04",
+      "difficulty": "hard",
+      "question": "List products that have never been ordered. Return product_id and name.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": false,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": false,
+      "schema_recall": 0.5,
+      "initial_prompt_chars": 3118,
+      "total_prompt_chars": 13360,
+      "generation_latency": 1.3048999790044036e-05,
+      "latency": 0.0022547329999724752,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "product_id",
+          "name"
+        ],
+        "rows": [
+          [
+            76,
+            "Product 076"
+          ],
+          [
+            77,
+            "Product 077"
+          ],
+          [
+            78,
+            "Product 078"
+          ],
+          [
+            79,
+            "Product 079"
+          ],
+          [
+            80,
+            "Product 080"
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "List products that have never been ordered. Return product_id and name.",
+        "trace_id": "d5426e8f4fbb45ffb6dfd35d15a1623e",
+        "created_at": "2026-09-07T17:52:03.713056+00:00",
+        "retrieved_tables": [
+          "categories",
+          "suppliers",
+          "products",
+          "customers"
+        ],
+        "retrieval_scores": {
+          "categories": 0.33541019662496846,
+          "suppliers": 0.33541019662496846,
+          "products": 0.23145502494313785,
+          "customers": 0.17677669529663687
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.2041241452319315
+          },
+          {
+            "example": {
+              "id": "fs7",
+              "question": "List suppliers with their product counts.",
+              "tables": [
+                "suppliers",
+                "products"
+              ],
+              "sql": "SELECT s.supplier_id, s.name, COUNT(p.product_id) AS products FROM suppliers AS s LEFT JOIN products AS p ON s.supplier_id = p.supplier_id GROUP BY s.supplier_id, s.name ORDER BY s.supplier_id"
+            },
+            "score": 0.2041241452319315
+          },
+          {
+            "example": {
+              "id": "fs5",
+              "question": "Show each category and its number of catalog products.",
+              "tables": [
+                "categories",
+                "products"
+              ],
+              "sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY c.category_id"
+            },
+            "score": 0.15811388300841894
+          }
+        ],
+        "generated_sql": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3118,
+            "generation_latency": 4.606999937095679e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3414,
+            "generation_latency": 2.7749997570936102e-06,
+            "usage": {}
+          },
+          {
+            "number": 3,
+            "raw_output": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3414,
+            "generation_latency": 3.744999958144035e-06,
+            "usage": {}
+          },
+          {
+            "number": 4,
+            "raw_output": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT p.product_id,p.name FROM products p WHERE NOT EXISTS (SELECT 1 FROM order_items i WHERE i.product_id=p.product_id)",
+              "error": "Table outside retrieved schema: order_items",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3414,
+            "generation_latency": 1.922000137710711e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": null,
+        "execution_result": null,
+        "latency": 0.0022547329999724752,
+        "stage_latencies": {
+          "schema_retrieval": 0.0001956279998012178,
+          "fewshot_retrieval": 0.0001013529999909224,
+          "generation_and_validation": 0.0019541649999155197
+        },
+        "token_usage": {},
+        "error": "Table outside retrieved schema: order_items",
+        "status": "validation_failed",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "Table outside retrieved schema: order_items",
+          "Table outside retrieved schema: order_items",
+          "Table outside retrieved schema: order_items",
+          "Table outside retrieved schema: order_items"
+        ]
+      }
+    },
+    {
+      "id": "h05",
+      "difficulty": "hard",
+      "question": "Calculate monthly revenue for completed orders in 2025. Return month as YYYY-MM and revenue rounded to two decimals, ordered by month.",
+      "first_pass_valid": false,
+      "initial_validation_failed": true,
+      "final_valid": true,
+      "recovered": true,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3204,
+      "total_prompt_chars": 6617,
+      "generation_latency": 5.8130003708356526e-06,
+      "latency": 0.0037893050002821838,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "month",
+          "revenue"
+        ],
+        "rows": [
+          [
+            "2025-01",
+            13749.78
+          ],
+          [
+            "2025-02",
+            4169.25
+          ],
+          [
+            "2025-03",
+            5962.86
+          ],
+          [
+            "2025-04",
+            13304.5
+          ],
+          [
+            "2025-05",
+            19952.73
+          ],
+          [
+            "2025-06",
+            17848.69
+          ],
+          [
+            "2025-07",
+            9613.55
+          ],
+          [
+            "2025-08",
+            10666.22
+          ],
+          [
+            "2025-09",
+            16324.31
+          ],
+          [
+            "2025-10",
+            19677.51
+          ],
+          [
+            "2025-11",
+            9683.25
+          ],
+          [
+            "2025-12",
+            12826.67
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Calculate monthly revenue for completed orders in 2025. Return month as YYYY-MM and revenue rounded to two decimals, ordered by month.",
+        "trace_id": "2763f7bfa013430d9ee2e3a1946523e3",
+        "created_at": "2026-09-07T17:52:03.717174+00:00",
+        "retrieved_tables": [
+          "orders",
+          "order_items",
+          "payments",
+          "categories"
+        ],
+        "retrieval_scores": {
+          "orders": 0.12909944487358055,
+          "order_items": 0.10127393670836665,
+          "payments": 0.06900655593423542,
+          "categories": 0.0
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.447213595499958
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.14907119849998599
+          },
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.14907119849998599
+          }
+        ],
+        "generated_sql": "SELECT missing_column FROM customers",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT missing_column FROM customers",
+            "validation": {
+              "valid": false,
+              "sql": "SELECT missing_column FROM customers",
+              "error": "Table outside retrieved schema: customers",
+              "error_type": "structure",
+              "stage": "static",
+              "retryable": true
+            },
+            "prompt_chars": 3204,
+            "generation_latency": 3.735000063898042e-06,
+            "usage": {}
+          },
+          {
+            "number": 2,
+            "raw_output": "SELECT strftime('%Y-%m',o.order_date) AS month, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY strftime('%Y-%m',o.order_date) ORDER BY month",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT strftime('%Y-%m',o.order_date) AS month, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY strftime('%Y-%m',o.order_date) ORDER BY month",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3413,
+            "generation_latency": 2.0780003069376107e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT strftime('%Y-%m',o.order_date) AS month, ROUND(SUM(i.quantity*i.unit_price),2) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY strftime('%Y-%m',o.order_date) ORDER BY month",
+        "execution_result": {
+          "columns": [
+            "month",
+            "revenue"
+          ],
+          "rows": [
+            [
+              "2025-01",
+              13749.78
+            ],
+            [
+              "2025-02",
+              4169.25
+            ],
+            [
+              "2025-03",
+              5962.86
+            ],
+            [
+              "2025-04",
+              13304.5
+            ],
+            [
+              "2025-05",
+              19952.73
+            ],
+            [
+              "2025-06",
+              17848.69
+            ],
+            [
+              "2025-07",
+              9613.55
+            ],
+            [
+              "2025-08",
+              10666.22
+            ],
+            [
+              "2025-09",
+              16324.31
+            ],
+            [
+              "2025-10",
+              19677.51
+            ],
+            [
+              "2025-11",
+              9683.25
+            ],
+            [
+              "2025-12",
+              12826.67
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0037893050002821838,
+        "stage_latencies": {
+          "schema_retrieval": 0.00019935299997086986,
+          "fewshot_retrieval": 0.00010812699974849238,
+          "generation_and_validation": 0.001511298999957944,
+          "execution": 0.001966067000012117
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": [
+          "Table outside retrieved schema: customers"
+        ]
+      }
+    },
+    {
+      "id": "h06",
+      "difficulty": "hard",
+      "question": "Find customers whose total spending across all orders exceeds the average spending of customers who have orders. Use a CTE. Return customer_id and revenue rounded to two decimals.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3662,
+      "total_prompt_chars": 3662,
+      "generation_latency": 4.402000286063412e-06,
+      "latency": 0.0034277150002708368,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "customer_id",
+          "revenue"
+        ],
+        "rows": [
+          [
+            3,
+            14037.87
+          ],
+          [
+            5,
+            18863.76
+          ],
+          [
+            6,
+            24895.03
+          ],
+          [
+            8,
+            16879.25
+          ],
+          [
+            9,
+            20228.6
+          ],
+          [
+            10,
+            14715.59
+          ],
+          [
+            13,
+            13049.83
+          ],
+          [
+            17,
+            12351.21
+          ],
+          [
+            18,
+            23146.99
+          ],
+          [
+            19,
+            16722.16
+          ],
+          [
+            21,
+            16421.59
+          ],
+          [
+            26,
+            24294.99
+          ],
+          [
+            27,
+            29855.01
+          ],
+          [
+            29,
+            13835.47
+          ],
+          [
+            34,
+            13080.14
+          ],
+          [
+            35,
+            14547.61
+          ],
+          [
+            36,
+            12953.84
+          ],
+          [
+            39,
+            14902.49
+          ],
+          [
+            40,
+            13143.83
+          ],
+          [
+            42,
+            22485.42
+          ],
+          [
+            43,
+            13872.32
+          ],
+          [
+            48,
+            12351.43
+          ],
+          [
+            51,
+            21027.49
+          ],
+          [
+            52,
+            14455.6
+          ],
+          [
+            53,
+            14275.16
+          ],
+          [
+            54,
+            15122.07
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Find customers whose total spending across all orders exceeds the average spending of customers who have orders. Use a CTE. Return customer_id and revenue rounded to two decimals.",
+        "trace_id": "3ca0b8172e414dd4a87fd5e3add7730f",
+        "created_at": "2026-09-07T17:52:03.723100+00:00",
+        "retrieved_tables": [
+          "order_items",
+          "orders",
+          "payments",
+          "customers"
+        ],
+        "retrieval_scores": {
+          "order_items": 0.19611613513818404,
+          "orders": 0.1875,
+          "payments": 0.1336306209562122,
+          "customers": 0.125
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.2886751345948129
+          },
+          {
+            "example": {
+              "id": "fs4",
+              "question": "Show the three buyers with highest spending in 2024, excluding refunded orders.",
+              "tables": [
+                "customers",
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT c.customer_id, c.name, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id JOIN order_items AS i ON o.order_id = i.order_id WHERE o.order_date >= '2024-01-01' AND o.order_date < '2025-01-01' AND o.status <> 'refunded' GROUP BY c.customer_id, c.name ORDER BY revenue DESC, c.customer_id LIMIT 3"
+            },
+            "score": 0.22360679774997896
+          },
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.14433756729740646
+          }
+        ],
+        "generated_sql": "WITH spending AS (SELECT o.customer_id, SUM(i.quantity*i.unit_price) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id GROUP BY o.customer_id) SELECT customer_id, ROUND(revenue,2) AS revenue FROM spending WHERE revenue > (SELECT AVG(revenue) FROM spending)",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "WITH spending AS (SELECT o.customer_id, SUM(i.quantity*i.unit_price) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id GROUP BY o.customer_id) SELECT customer_id, ROUND(revenue,2) AS revenue FROM spending WHERE revenue > (SELECT AVG(revenue) FROM spending)",
+            "validation": {
+              "valid": true,
+              "sql": "WITH spending AS (SELECT o.customer_id, SUM(i.quantity*i.unit_price) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id GROUP BY o.customer_id) SELECT customer_id, ROUND(revenue,2) AS revenue FROM spending WHERE revenue > (SELECT AVG(revenue) FROM spending)",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3662,
+            "generation_latency": 4.402000286063412e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "WITH spending AS (SELECT o.customer_id, SUM(i.quantity*i.unit_price) AS revenue FROM orders o JOIN order_items i ON o.order_id=i.order_id GROUP BY o.customer_id) SELECT customer_id, ROUND(revenue,2) AS revenue FROM spending WHERE revenue > (SELECT AVG(revenue) FROM spending)",
+        "execution_result": {
+          "columns": [
+            "customer_id",
+            "revenue"
+          ],
+          "rows": [
+            [
+              3,
+              14037.87
+            ],
+            [
+              5,
+              18863.76
+            ],
+            [
+              6,
+              24895.03
+            ],
+            [
+              8,
+              16879.25
+            ],
+            [
+              9,
+              20228.6
+            ],
+            [
+              10,
+              14715.59
+            ],
+            [
+              13,
+              13049.83
+            ],
+            [
+              17,
+              12351.21
+            ],
+            [
+              18,
+              23146.99
+            ],
+            [
+              19,
+              16722.16
+            ],
+            [
+              21,
+              16421.59
+            ],
+            [
+              26,
+              24294.99
+            ],
+            [
+              27,
+              29855.01
+            ],
+            [
+              29,
+              13835.47
+            ],
+            [
+              34,
+              13080.14
+            ],
+            [
+              35,
+              14547.61
+            ],
+            [
+              36,
+              12953.84
+            ],
+            [
+              39,
+              14902.49
+            ],
+            [
+              40,
+              13143.83
+            ],
+            [
+              42,
+              22485.42
+            ],
+            [
+              43,
+              13872.32
+            ],
+            [
+              48,
+              12351.43
+            ],
+            [
+              51,
+              21027.49
+            ],
+            [
+              52,
+              14455.6
+            ],
+            [
+              53,
+              14275.16
+            ],
+            [
+              54,
+              15122.07
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.0034277150002708368,
+        "stage_latencies": {
+          "schema_retrieval": 0.00020187199970678193,
+          "fewshot_retrieval": 0.00012617399988812394,
+          "generation_and_validation": 0.0013515900000129477,
+          "execution": 0.0017432569998163672
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "h07",
+      "difficulty": "hard",
+      "question": "Find orders with at least two payments. Return order_id and payment_count.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3144,
+      "total_prompt_chars": 3144,
+      "generation_latency": 4.52900030722958e-06,
+      "latency": 0.002171202000226913,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "order_id",
+          "payment_count"
+        ],
+        "rows": [
+          [
+            7,
+            2
+          ],
+          [
+            14,
+            2
+          ],
+          [
+            21,
+            2
+          ],
+          [
+            35,
+            2
+          ],
+          [
+            42,
+            2
+          ],
+          [
+            49,
+            2
+          ],
+          [
+            56,
+            2
+          ],
+          [
+            63,
+            2
+          ],
+          [
+            70,
+            2
+          ],
+          [
+            77,
+            2
+          ],
+          [
+            84,
+            2
+          ],
+          [
+            91,
+            2
+          ],
+          [
+            119,
+            2
+          ],
+          [
+            126,
+            2
+          ],
+          [
+            133,
+            2
+          ],
+          [
+            140,
+            2
+          ],
+          [
+            147,
+            2
+          ],
+          [
+            154,
+            2
+          ],
+          [
+            168,
+            2
+          ],
+          [
+            175,
+            2
+          ],
+          [
+            182,
+            2
+          ],
+          [
+            189,
+            2
+          ],
+          [
+            196,
+            2
+          ],
+          [
+            203,
+            2
+          ],
+          [
+            224,
+            2
+          ],
+          [
+            231,
+            2
+          ],
+          [
+            245,
+            2
+          ],
+          [
+            252,
+            2
+          ],
+          [
+            259,
+            2
+          ],
+          [
+            266,
+            2
+          ],
+          [
+            273,
+            2
+          ],
+          [
+            280,
+            2
+          ],
+          [
+            287,
+            2
+          ],
+          [
+            294,
+            2
+          ],
+          [
+            301,
+            2
+          ],
+          [
+            308,
+            2
+          ],
+          [
+            315,
+            2
+          ],
+          [
+            322,
+            2
+          ],
+          [
+            329,
+            2
+          ],
+          [
+            336,
+            2
+          ],
+          [
+            343,
+            2
+          ],
+          [
+            350,
+            2
+          ],
+          [
+            357,
+            2
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Find orders with at least two payments. Return order_id and payment_count.",
+        "trace_id": "a6c7f13938a84edaa35a7c547bcdb965",
+        "created_at": "2026-09-07T17:52:03.728338+00:00",
+        "retrieved_tables": [
+          "payments",
+          "orders",
+          "order_items",
+          "categories"
+        ],
+        "retrieval_scores": {
+          "payments": 0.3030457633656632,
+          "orders": 0.1889822365046136,
+          "order_items": 0.14824986333222023,
+          "categories": 0.11952286093343936
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.4364357804719848
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.2182178902359924
+          },
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.2182178902359924
+          }
+        ],
+        "generated_sql": "SELECT order_id,COUNT(*) AS payment_count FROM payments GROUP BY order_id HAVING COUNT(*) >= 2",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT order_id,COUNT(*) AS payment_count FROM payments GROUP BY order_id HAVING COUNT(*) >= 2",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT order_id,COUNT(*) AS payment_count FROM payments GROUP BY order_id HAVING COUNT(*) >= 2",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3144,
+            "generation_latency": 4.52900030722958e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT order_id,COUNT(*) AS payment_count FROM payments GROUP BY order_id HAVING COUNT(*) >= 2",
+        "execution_result": {
+          "columns": [
+            "order_id",
+            "payment_count"
+          ],
+          "rows": [
+            [
+              7,
+              2
+            ],
+            [
+              14,
+              2
+            ],
+            [
+              21,
+              2
+            ],
+            [
+              35,
+              2
+            ],
+            [
+              42,
+              2
+            ],
+            [
+              49,
+              2
+            ],
+            [
+              56,
+              2
+            ],
+            [
+              63,
+              2
+            ],
+            [
+              70,
+              2
+            ],
+            [
+              77,
+              2
+            ],
+            [
+              84,
+              2
+            ],
+            [
+              91,
+              2
+            ],
+            [
+              119,
+              2
+            ],
+            [
+              126,
+              2
+            ],
+            [
+              133,
+              2
+            ],
+            [
+              140,
+              2
+            ],
+            [
+              147,
+              2
+            ],
+            [
+              154,
+              2
+            ],
+            [
+              168,
+              2
+            ],
+            [
+              175,
+              2
+            ],
+            [
+              182,
+              2
+            ],
+            [
+              189,
+              2
+            ],
+            [
+              196,
+              2
+            ],
+            [
+              203,
+              2
+            ],
+            [
+              224,
+              2
+            ],
+            [
+              231,
+              2
+            ],
+            [
+              245,
+              2
+            ],
+            [
+              252,
+              2
+            ],
+            [
+              259,
+              2
+            ],
+            [
+              266,
+              2
+            ],
+            [
+              273,
+              2
+            ],
+            [
+              280,
+              2
+            ],
+            [
+              287,
+              2
+            ],
+            [
+              294,
+              2
+            ],
+            [
+              301,
+              2
+            ],
+            [
+              308,
+              2
+            ],
+            [
+              315,
+              2
+            ],
+            [
+              322,
+              2
+            ],
+            [
+              329,
+              2
+            ],
+            [
+              336,
+              2
+            ],
+            [
+              343,
+              2
+            ],
+            [
+              350,
+              2
+            ],
+            [
+              357,
+              2
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.002171202000226913,
+        "stage_latencies": {
+          "schema_retrieval": 0.00019034299975828617,
+          "fewshot_retrieval": 0.00010542099971644348,
+          "generation_and_validation": 0.000872628000252007,
+          "execution": 0.0009990069997911633
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "h08",
+      "difficulty": "hard",
+      "question": "Find completed orders where total payments do not equal line-item totals, allowing a difference of 0.01. Aggregate each separately using CTEs. Return order_id only.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3234,
+      "total_prompt_chars": 3234,
+      "generation_latency": 4.538999746728223e-06,
+      "latency": 0.004554856000140717,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "order_id"
+        ],
+        "rows": [
+          [
+            37
+          ],
+          [
+            111
+          ],
+          [
+            148
+          ],
+          [
+            185
+          ],
+          [
+            222
+          ],
+          [
+            259
+          ],
+          [
+            296
+          ],
+          [
+            333
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "Find completed orders where total payments do not equal line-item totals, allowing a difference of 0.01. Aggregate each separately using CTEs. Return order_id only.",
+        "trace_id": "3955e185b0b342c9807c0173c9e04e68",
+        "created_at": "2026-09-07T17:52:03.733798+00:00",
+        "retrieved_tables": [
+          "payments",
+          "order_items",
+          "orders",
+          "categories"
+        ],
+        "retrieval_scores": {
+          "payments": 0.18394180184548975,
+          "order_items": 0.179968508266339,
+          "orders": 0.1720618004029213,
+          "categories": 0.07254762501100116
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.26490647141300877
+          },
+          {
+            "example": {
+              "id": "fs6",
+              "question": "Find orders with no payments.",
+              "tables": [
+                "orders",
+                "payments"
+              ],
+              "sql": "SELECT o.order_id FROM orders AS o WHERE NOT EXISTS (SELECT 1 FROM payments AS p WHERE p.order_id = o.order_id) ORDER BY o.order_id"
+            },
+            "score": 0.26490647141300877
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.13245323570650439
+          }
+        ],
+        "generated_sql": "WITH lines AS (SELECT order_id,SUM(quantity*unit_price) AS total FROM order_items GROUP BY order_id), paid AS (SELECT order_id,SUM(amount) AS total FROM payments GROUP BY order_id) SELECT o.order_id FROM orders o JOIN lines l ON o.order_id=l.order_id LEFT JOIN paid p ON o.order_id=p.order_id WHERE o.status='completed' AND ABS(l.total-COALESCE(p.total,0)) > 0.01",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "WITH lines AS (SELECT order_id,SUM(quantity*unit_price) AS total FROM order_items GROUP BY order_id), paid AS (SELECT order_id,SUM(amount) AS total FROM payments GROUP BY order_id) SELECT o.order_id FROM orders o JOIN lines l ON o.order_id=l.order_id LEFT JOIN paid p ON o.order_id=p.order_id WHERE o.status='completed' AND ABS(l.total-COALESCE(p.total,0)) > 0.01",
+            "validation": {
+              "valid": true,
+              "sql": "WITH lines AS (SELECT order_id,SUM(quantity*unit_price) AS total FROM order_items GROUP BY order_id), paid AS (SELECT order_id,SUM(amount) AS total FROM payments GROUP BY order_id) SELECT o.order_id FROM orders o JOIN lines l ON o.order_id=l.order_id LEFT JOIN paid p ON o.order_id=p.order_id WHERE o.status='completed' AND ABS(l.total-COALESCE(p.total,0)) > 0.01",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3234,
+            "generation_latency": 4.538999746728223e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "WITH lines AS (SELECT order_id,SUM(quantity*unit_price) AS total FROM order_items GROUP BY order_id), paid AS (SELECT order_id,SUM(amount) AS total FROM payments GROUP BY order_id) SELECT o.order_id FROM orders o JOIN lines l ON o.order_id=l.order_id LEFT JOIN paid p ON o.order_id=p.order_id WHERE o.status='completed' AND ABS(l.total-COALESCE(p.total,0)) > 0.01",
+        "execution_result": {
+          "columns": [
+            "order_id"
+          ],
+          "rows": [
+            [
+              37
+            ],
+            [
+              111
+            ],
+            [
+              148
+            ],
+            [
+              185
+            ],
+            [
+              222
+            ],
+            [
+              259
+            ],
+            [
+              296
+            ],
+            [
+              333
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.004554856000140717,
+        "stage_latencies": {
+          "schema_retrieval": 0.00020614499999282998,
+          "fewshot_retrieval": 0.00012538900000436115,
+          "generation_and_validation": 0.0020630760000130977,
+          "execution": 0.0021562049996646238
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    },
+    {
+      "id": "h09",
+      "difficulty": "hard",
+      "question": "For each country of customers, count distinct products purchased in completed orders in 2025. Return country and product_count.",
+      "first_pass_valid": true,
+      "initial_validation_failed": false,
+      "final_valid": true,
+      "recovered": false,
+      "provider_failed": false,
+      "execution_correct": true,
+      "schema_recall": 1.0,
+      "initial_prompt_chars": 3156,
+      "total_prompt_chars": 3156,
+      "generation_latency": 3.5980001484858803e-06,
+      "latency": 0.00287150499980271,
+      "token_usage": {},
+      "expected_result": {
+        "columns": [
+          "country",
+          "product_count"
+        ],
+        "rows": [
+          [
+            "Canada",
+            30
+          ],
+          [
+            "France",
+            27
+          ],
+          [
+            "Germany",
+            32
+          ],
+          [
+            "Japan",
+            50
+          ],
+          [
+            "USA",
+            33
+          ]
+        ],
+        "truncated": false
+      },
+      "trace": {
+        "question": "For each country of customers, count distinct products purchased in completed orders in 2025. Return country and product_count.",
+        "trace_id": "1413b966bbe24c85a36f273de188cd1c",
+        "created_at": "2026-09-07T17:52:03.740121+00:00",
+        "retrieved_tables": [
+          "orders",
+          "suppliers",
+          "customers",
+          "order_items"
+        ],
+        "retrieval_scores": {
+          "orders": 0.23717082451262844,
+          "suppliers": 0.2,
+          "customers": 0.15811388300841897,
+          "order_items": 0.12403473458920847
+        },
+        "fewshot_examples": [
+          {
+            "example": {
+              "id": "fs3",
+              "question": "What is the revenue of each completed order?",
+              "tables": [
+                "orders",
+                "order_items"
+              ],
+              "sql": "SELECT o.order_id, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue FROM orders AS o JOIN order_items AS i ON o.order_id = i.order_id WHERE o.status = 'completed' GROUP BY o.order_id ORDER BY o.order_id"
+            },
+            "score": 0.3651483716701108
+          },
+          {
+            "example": {
+              "id": "fs1",
+              "question": "List customers from France with their names.",
+              "tables": [
+                "customers"
+              ],
+              "sql": "SELECT customer_id, name FROM customers WHERE country = 'France' ORDER BY customer_id"
+            },
+            "score": 0.1825741858350554
+          },
+          {
+            "example": {
+              "id": "fs2",
+              "question": "How many orders were placed in 2024?",
+              "tables": [
+                "orders"
+              ],
+              "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+            },
+            "score": 0.1825741858350554
+          }
+        ],
+        "generated_sql": "SELECT c.country,COUNT(DISTINCT i.product_id) AS product_count FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY c.country",
+        "validation_attempts": [
+          {
+            "number": 1,
+            "raw_output": "SELECT c.country,COUNT(DISTINCT i.product_id) AS product_count FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY c.country",
+            "validation": {
+              "valid": true,
+              "sql": "SELECT c.country,COUNT(DISTINCT i.product_id) AS product_count FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY c.country",
+              "error": null,
+              "error_type": null,
+              "stage": "explain",
+              "retryable": true
+            },
+            "prompt_chars": 3156,
+            "generation_latency": 3.5980001484858803e-06,
+            "usage": {}
+          }
+        ],
+        "final_sql": "SELECT c.country,COUNT(DISTINCT i.product_id) AS product_count FROM customers c JOIN orders o ON c.customer_id=o.customer_id JOIN order_items i ON o.order_id=i.order_id WHERE o.status='completed' AND o.order_date >= '2025-01-01' AND o.order_date < '2026-01-01' GROUP BY c.country",
+        "execution_result": {
+          "columns": [
+            "country",
+            "product_count"
+          ],
+          "rows": [
+            [
+              "Canada",
+              30
+            ],
+            [
+              "France",
+              27
+            ],
+            [
+              "Germany",
+              32
+            ],
+            [
+              "Japan",
+              50
+            ],
+            [
+              "USA",
+              33
+            ]
+          ],
+          "truncated": false
+        },
+        "latency": 0.00287150499980271,
+        "stage_latencies": {
+          "schema_retrieval": 0.00017640399983065436,
+          "fewshot_retrieval": 9.519700006421772e-05,
+          "generation_and_validation": 0.0010699710001063067,
+          "execution": 0.0015270519998011878
+        },
+        "token_usage": {},
+        "error": null,
+        "status": "success",
+        "provider": "fake-scripted",
+        "embedding_provider": "hashing-8192-v1",
+        "validation_errors": []
+      }
+    }
+  ]
+}

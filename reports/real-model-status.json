@@ -1,0 +1,12 @@
+{
+  "mode": "real_model_unavailable",
+  "model": "gpt-4.1-mini",
+  "base_url": "https://api.openai.com/v1",
+  "checked_at": "2026-09-07T17:45:24.610038+00:00",
+  "probe_trace_id": "ce457e7766fe42bab311e72d6c9f285b",
+  "probe_question": "How many customers are there? Return customer_count.",
+  "error": "Provider HTTP 401",
+  "benchmark_executed": false,
+  "metrics": null,
+  "note": "The initial sandbox request failed with URLError. The authorized external-network retry reached the provider and failed authentication. No model SQL was returned. Oracle replay reports are not model capability results."
+}

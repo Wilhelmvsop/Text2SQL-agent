@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "text2sql-agent"
+version = "0.1.0"
+description = "An observable, schema-grounded text-to-SQL pipeline"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26,<3", "sqlglot==30.8.0"]
+
+[project.optional-dependencies]
+neural = ["sentence-transformers>=3,<6"]
+
+[project.scripts]
+text2sql = "text2sql.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["text2sql*"]
+
+[tool.setuptools.package-data]
+text2sql = ["assets/*.json"]
