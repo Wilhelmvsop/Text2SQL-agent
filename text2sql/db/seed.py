@@ -5,13 +5,13 @@ from contextlib import closing
 from pathlib import Path
 
 DESCRIPTIONS = {
-    "customers": "Customers, buyers, names, email, country. 客户 顾客 国家 Canada 加拿大",
-    "categories": "Product categories and departments. 商品 分类",
-    "suppliers": "Product suppliers, vendors and their countries. 供应商",
-    "products": "Products with category, supplier, current catalog price and inventory stock. 商品 产品 库存 价格",
-    "orders": "Customer orders, order dates and status: completed, pending, refunded. 订单 日期 年 退款",
-    "order_items": "Order line items: quantity and historical unit_price. Revenue or spending = quantity * unit_price. 购买金额 销售额 收入 消费 数量",
-    "payments": "Payments per order, amount, date and method. Multiple payments possible. 付款 支付",
+    "customers": "Customers, buyers, names, email, country, Canada.",
+    "categories": "Product categories and departments.",
+    "suppliers": "Product suppliers, vendors and their countries.",
+    "products": "Products with category, supplier, current catalog price and inventory stock.",
+    "orders": "Customer orders, order dates and status: completed, pending, refunded.",
+    "order_items": "Order line items: quantity and historical unit_price. Revenue or spending = quantity * unit_price.",
+    "payments": "Payments per order, amount, date and method. Multiple payments possible.",
 }
 
 DDL = """

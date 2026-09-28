@@ -14,7 +14,6 @@ from text2sql.retrieval.schema_index import SchemaIndexer, SchemaRetriever
 from text2sql.validation.validator import SQLValidator
 
 DEMO_QUESTION = 'Which five customers spent the most money in 2025, excluding refunded orders?'
-DEMO_CHINESE = '2025 年购买金额最高的五名客户是谁？排除已退款订单。'
 DEMO_SQL = """SELECT c.customer_id, c.name, ROUND(SUM(i.quantity * i.unit_price), 2) AS revenue
 FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id
 JOIN order_items AS i ON o.order_id = i.order_id

@@ -7,7 +7,7 @@ from pathlib import Path
 from text2sql.config import Config
 from text2sql.db.seed import seed_database
 from text2sql.errors import Text2SQLError
-from text2sql.factory import DEMO_CHINESE, DEMO_QUESTION, build_agent
+from text2sql.factory import DEMO_QUESTION, build_agent
 
 
 def report_summary(report: dict) -> dict:
@@ -89,7 +89,7 @@ def main(argv: list[str] | None = None) -> int:
                 if question.lower() in {'quit', 'exit'}:
                     return 0
                 question = question or DEMO_QUESTION
-            if config.llm == 'fake' and question not in {DEMO_QUESTION, DEMO_CHINESE}:
+            if config.llm == 'fake' and question != DEMO_QUESTION:
                 raise ValueError('Fake mode supports only the preset --demo question. Configure --llm api for arbitrary questions.')
             if agent is None or config.llm == 'fake':
                 agent = build_agent(config, full_schema=args.full_schema)
