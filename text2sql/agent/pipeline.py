@@ -3,6 +3,7 @@ import time
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
+from typing import Callable
 
 from text2sql.agent.correction import Attempt, CorrectionLoop
 from text2sql.db.connection import QueryResult
@@ -52,7 +53,9 @@ class Text2SQLAgent:
         self.correction, self.executor = correction, executor
         self.top_k, self.fewshot_k, self.logger, self.full_schema = top_k, fewshot_k, logger, full_schema
 
-    def run(self, question: str) -> Text2SQLResult:
+    def run(self, question: str, on_event: Callable[[str, dict], None] | None = None) -> Text2SQLResult:
+        """Run the pipeline; on_event(stage, payload) is called as each stage finishes."""
+        emit = on_event or (lambda stage, payload: None)
         result = Text2SQLResult(question)
         result.provider = self.correction.generator.provider.name
         result.embedding_provider = self.schema_retriever.index.embeddings.name
@@ -69,12 +72,17 @@ class Text2SQLAgent:
             result.retrieved_tables = [t.name for t in tables]
             result.retrieval_scores = {h.table.name: None if self.full_schema else h.score for h in hits}
             result.stage_latencies['schema_retrieval'] = time.perf_counter() - tick
+            emit('schema_retrieval', {'tables': result.retrieved_tables, 'scores': result.retrieval_scores,
+                                      'latency': result.stage_latencies['schema_retrieval']})
             tick = time.perf_counter()
             examples = self.fewshot_retriever.retrieve(question, set(result.retrieved_tables), self.fewshot_k)
             result.fewshot_examples = [asdict(h) for h in examples]
             result.stage_latencies['fewshot_retrieval'] = time.perf_counter() - tick
+            emit('fewshot_retrieval', {'examples': result.fewshot_examples,
+                                       'latency': result.stage_latencies['fewshot_retrieval']})
             tick = time.perf_counter()
-            result.final_sql = self.correction.run(question, tables, examples, result.validation_attempts)
+            result.final_sql = self.correction.run(question, tables, examples, result.validation_attempts,
+                                                   lambda attempt: emit('attempt', asdict(attempt)))
             result.stage_latencies['generation_and_validation'] = time.perf_counter() - tick
             if result.final_sql is None:
                 result.status = 'validation_failed'
@@ -83,6 +91,7 @@ class Text2SQLAgent:
                 tick = time.perf_counter()
                 result.execution_result = self.executor.execute(result.final_sql, set(result.retrieved_tables))
                 result.stage_latencies['execution'] = time.perf_counter() - tick
+                emit('execution', {'latency': result.stage_latencies['execution']})
                 result.status = 'success'
         except (Text2SQLError, ValueError) as exc:
             result.status = 'error'

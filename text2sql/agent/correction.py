@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Callable
 
 from text2sql.db.schema import TableSchema
 from text2sql.generation.sql_generator import SQLGenerator
@@ -23,13 +24,15 @@ class CorrectionLoop:
         self.generator, self.validator, self.max_retries = generator, validator, max_retries
 
     def run(self, question: str, tables: list[TableSchema], examples: list[ExampleHit],
-            attempts: list[Attempt]) -> str | None:
+            attempts: list[Attempt], on_attempt: Callable[[Attempt], None] | None = None) -> str | None:
         previous_sql = error = None
         for index in range(self.max_retries + 1):
             generation = self.generator.generate_sql(question, tables, examples, previous_sql, error)
             validation = self.validator.validate(generation.response.text, {t.name for t in tables})
             attempts.append(Attempt(index + 1, generation.response.text, validation,
                                     generation.prompt_chars, generation.latency, generation.response.usage))
+            if on_attempt is not None:
+                on_attempt(attempts[-1])
             if validation.valid:
                 return validation.sql
             if not validation.retryable:

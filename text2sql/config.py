@@ -17,6 +17,7 @@ class Config:
     top_k: int = 4
     max_retries: int = 3
     trace: Path = Path('traces/queries.jsonl')
+    history_path: Path = Path('data/app.db')
 
     @classmethod
     def from_env(cls) -> 'Config':
@@ -29,4 +30,5 @@ class Config:
                    embedding_base_url=get('TEXT2SQL_EMBEDDING_BASE_URL', ''),
                    embedding_api_key=get('TEXT2SQL_EMBEDDING_API_KEY', ''),
                    top_k=int(get('TEXT2SQL_TOP_K', '4')), max_retries=int(get('TEXT2SQL_MAX_RETRIES', '3')),
-                   trace=Path(get('TEXT2SQL_TRACE', 'traces/queries.jsonl')))
+                   trace=Path(get('TEXT2SQL_TRACE', 'traces/queries.jsonl')),
+                   history_path=Path(get('TEXT2SQL_HISTORY', 'data/app.db')))

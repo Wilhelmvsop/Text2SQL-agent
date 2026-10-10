@@ -11,9 +11,11 @@ dependencies = ["numpy>=1.26,<3", "sqlglot==30.8.0"]
 
 [project.optional-dependencies]
 neural = ["sentence-transformers>=3,<6"]
+web = ["fastapi>=0.115,<1", "uvicorn>=0.30", "httpx>=0.27"]
 
 [project.scripts]
 text2sql = "text2sql.cli:main"
+text2sql-server = "text2sql.server.__main__:main"
 
 [tool.setuptools.packages.find]
 include = ["text2sql*"]

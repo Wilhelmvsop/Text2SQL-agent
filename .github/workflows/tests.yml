@@ -11,8 +11,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: python -m pip install -e .
+      - run: python -m pip install -e '.[web]'
       - run: python -m unittest discover -v
       - run: python -m text2sql.cli --init-db
       - run: python -m text2sql.cli --demo
       - run: python -m text2sql.cli --evaluate --smoke --output reports/local-ci.json
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: pnpm build

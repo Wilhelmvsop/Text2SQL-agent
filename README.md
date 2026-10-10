@@ -1,249 +1,305 @@
 # Text2SQL Agent
 
-> Turn plain-English questions into validated, executable SQL so anyone can explore business data.
+[![tests](https://github.com/Wilhelmvsop/Text2SQL-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/Wilhelmvsop/Text2SQL-agent/actions/workflows/tests.yml)
 
-Text2SQL Agent is a locally runnable natural-language database interface. It identifies
-the relevant tables, asks a language model to generate SQL, validates the query, and
-returns real database results through a protected read-only connection.
+Ask questions about a SQLite database in plain English and get back validated, read-only SQL,
+its results, and a step-by-step trace of how the answer was produced.
 
-## Results at a Glance
+Text2SQL Agent finds the tables relevant to a question, asks a language model to write SQL,
+checks that SQL for safety and correctness, corrects ordinary errors automatically, and runs
+it through a protected read-only connection. It ships as a web app (React + FastAPI) and as a
+command-line tool.
 
-| Outcome | Measured result |
-|---|---:|
-| Real-model execution accuracy | **92% (23/25)** |
-| Easy / medium question accuracy | **100% / 100%** |
-| Queries valid after correction | **96% (24/25)** |
-| Automated tests | **33 passing** |
-| Evaluation dataset | 7 tables, 1,939 records, 25 questions |
+## Contents
 
-The real-model figures come from one end-to-end `deepseek-flash` evaluation. Each
-model-generated query passed through the project's safety checks, ran against SQLite,
-and was compared with the reference query result. See the [experiment record](docs/EXPERIMENTS.md)
-for the complete configuration, case-level artifacts, and measurement scope.
+- [Features](#features)
+- [How It Works](#how-it-works)
+- [Getting Started](#getting-started)
+- [Command-Line Usage](#command-line-usage)
+- [Configuration](#configuration)
+- [Evaluation](#evaluation)
+- [Development](#development)
+- [Security Model](#security-model)
+- [Limitations](#limitations)
+- [Tech Stack](#tech-stack)
 
-## What It Does
+## Features
 
-Traditional database analysis requires users to understand table structures,
-relationships, and SQL. This project turns that work into three visible stages:
+**Web app**
 
-1. **Retrieve:** identify the tables and relationships relevant to the question.
-2. **Generate:** give the model the selected schema and compatible examples.
-3. **Validate and execute:** reject unsafe SQL, correct ordinary errors, and execute
-   only validated queries through a read-only database connection.
+- **Guided setup in the browser.** Upload a SQLite database (or use the sample one) and connect
+  a model on first launch. No `.env` file or CLI flags needed.
+- **Live trace.** Each pipeline stage streams in as it finishes: retrieved tables with scores,
+  few-shot examples, every SQL attempt with its error, a diff between attempts, and latency per stage.
+- **Editable SQL.** Generated SQL opens in an editor with schema-aware autocomplete. It is
+  re-validated as you type, and unsafe SQL cannot be run.
+- **Result explorer.** Sort, filter, paginate, and export to CSV. A banner appears when the row limit truncates results.
+- **Persistent history.** Search, star, and filter past queries. Each query has a shareable
+  `/q/:id` URL, and hand-edited re-runs are nested under their original question.
+- **Settings without restarts.** Model, retrieval, and database settings apply immediately. A
+  model is saved only after it answers a test request; an invalid configuration is rejected and
+  the previous one keeps running.
 
-For example, a user can ask:
+**Agent pipeline**
 
-> Which five customers spent the most money in 2025, excluding refunded orders?
+- Schema retrieval with pluggable embeddings (built-in hashing, Sentence Transformers, or an embeddings API)
+- Few-shot example selection filtered by schema compatibility
+- Any OpenAI-compatible Chat Completions API, hosted or local (OpenAI, DeepSeek, OpenRouter, Ollama, …)
+- Layered validation and bounded self-correction; see [Security Model](#security-model)
+- JSONL traces with latency, prompt size, and token usage
+- An evaluation harness that compares execution results with reference queries
 
-The system finds the customer, order, and line-item data, builds the joins and
-aggregation, and returns customer names with revenue. It also records the selected
-tables, every SQL attempt, validation results, and latency for inspection.
-
-## Workflow
+## How It Works
 
 ```mermaid
 flowchart LR
-    A[Plain-English question] --> B[Retrieve relevant tables]
+    A[Question] --> B[Retrieve relevant tables]
     B --> C[Select compatible examples]
     C --> D[Generate SQL]
     D --> E{Validate syntax and safety}
     E -->|Correctable error| D
     E -->|Unsafe operation| F[Reject]
-    E -->|Valid| G[Execute read-only query]
-    G --> H[Return data and trace]
+    E -->|Valid| G[Execute read-only]
+    G --> H[Results and trace]
 ```
 
-The project provides a controlled boundary between model output and the database:
+The web app adds a FastAPI server around this pipeline. The server streams each stage to the
+browser over server-sent events and stores query history and settings in its own database
+(`data/app.db`), kept separate from the database being queried.
 
-- Allows one read-only query and rejects writes, DDL, and multiple statements.
-- Uses SQL AST checks for query type, table scope, and join structure.
-- Uses SQLite `EXPLAIN` to catch syntax, table, and column errors before execution.
-- Applies a read-only connection, function allowlist, time budget, and row limit.
-- Retains generation, correction, validation, and execution records for debugging.
+The pipeline uses direct Python orchestration rather than LangChain or LlamaIndex, so each
+stage and security boundary can be tested on its own.
 
-## Five-Minute Quick Start
+## Getting Started
 
-### 1. Requirements
+### Prerequisites
 
 - Python 3.11 or newer
-- macOS, Linux, or Windows with PowerShell/WSL
-- No API key for the scripted demo
+- Node.js 20 or newer, with Corepack (bundled with Node), to build the web app
+- An API key for an OpenAI-compatible model, or a local [Ollama](https://ollama.com) server
+- macOS, Linux, or Windows (PowerShell or WSL)
 
-### 2. Install
+### Installation
 
 ```bash
-git clone <your-repository-url>
-cd text2sql-agent
+git clone https://github.com/Wilhelmvsop/Text2SQL-agent.git
+cd Text2SQL-agent
 
 python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
+source .venv/bin/activate          # Windows PowerShell: .venv\Scripts\Activate.ps1
+python -m pip install -e '.[web]'
+
+cd web
+corepack pnpm install
+corepack pnpm build
+cd ..
 ```
 
-On Windows PowerShell, activate the environment with:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-### 3. Create the Demo Database
+### Run the Web App
 
 ```bash
-python -m text2sql.cli --init-db
+text2sql-server
 ```
 
-The command creates a deterministic e-commerce dataset so runs are reproducible.
+The app opens at <http://127.0.0.1:8000>. Use `--port` to change the port and `--no-browser`
+to skip opening a browser.
 
-### 4. Run the Demo
+On first launch, a setup screen walks through two steps:
+
+1. **Database.** Drag in a SQLite file (`.db`, `.sqlite`, or `.sqlite3`, up to 200 MB), or
+   choose the sample e-commerce database.
+2. **Language model.** Pick a preset or enter a base URL, model name, and API key. The model
+   must answer a short test request before it is saved.
+
+The workspace stays locked until both steps are done. Both can be changed later in **Settings**.
+
+### Demo Databases
+
+[`examples/databases/`](examples/databases/README.md) contains five ready-to-upload databases
+from different domains, each with questions to try:
+
+| Database | Domain | SQL features exercised |
+|---|---|---|
+| `university.db` | Courses and grades | Multi-table joins, `NULL` grades for courses in progress |
+| `hospital.db` | Appointments and prescriptions | Status filters, percentages, date-time ranges |
+| `library.db` | Book loans | `NULL` return dates, overdue logic, fines |
+| `streaming.db` | Movies, views, and reviews | Many-to-many relationships, `HAVING`, completion rates |
+| `company.db` | Employees and projects | Manager self-joins, salary history, window functions |
+
+## Command-Line Usage
+
+The CLI runs the same pipeline without the web app. It also has an offline demo mode that replays
+scripted model responses and needs no API key.
 
 ```bash
-python -m text2sql.cli --demo
+python -m text2sql.cli --init-db      # create the sample database at data/database.db
+python -m text2sql.cli --demo         # offline demo: failed attempt, correction, safe execution
 ```
 
-The demo shows a complete cycle: invalid first query, automatic correction, validation,
-and safe execution. It uses scripted local responses and does not consume a model API.
-
-### 5. Run the Test Suite
+To ask your own questions, configure a model through environment variables (see
+[Configuration](#configuration)):
 
 ```bash
-python -m unittest discover -v
+cp .env.example .env                  # then fill in TEXT2SQL_LLM=api, base URL, model, and key
+set -a; source .env; set +a           # the CLI does not load .env automatically
+
+python -m text2sql.cli --question "List all customers from Canada. Return customer_id and name."
 ```
 
-## Connect a Real Model
+Running without `--question` starts an interactive prompt.
 
-The project supports OpenAI-compatible Chat Completions APIs from local or hosted
-providers. Copy the environment template and enter your service details:
+| Option | Description |
+|---|---|
+| `--init-db` | Create the deterministic sample database (refuses to overwrite) |
+| `--db PATH` | Database to use (default: `TEXT2SQL_DB`) |
+| `-q`, `--question TEXT` | Ask one question and exit |
+| `--demo` | Offline demo with scripted model responses |
+| `--json` | Print the full result and trace as JSON |
+| `--llm {fake,api}` | Override the model provider |
+| `--top-k N` | Number of tables to retrieve |
+| `--full-schema` | Send every table to the model instead of retrieving Top-K |
+| `--evaluate` | Run the benchmark (add `--smoke` for reference-query replay) |
+| `--ablation` | Compare full-schema and Top-K retrieval |
+| `--output PATH` | Where to write evaluation reports |
 
-```bash
-cp .env.example .env
-```
+## Configuration
 
-```dotenv
-TEXT2SQL_DB=data/database.db
-TEXT2SQL_LLM=api
-TEXT2SQL_BASE_URL=https://api.example.com/v1
-TEXT2SQL_MODEL=your-model-name
-TEXT2SQL_API_KEY=your-api-key
-```
+The CLI reads environment variables. The web app uses the same variables as its defaults, and
+any value saved in **Settings** takes precedence.
 
-Load the configuration and ask a question:
+| Variable | Default | Description |
+|---|---|---|
+| `TEXT2SQL_DB` | `data/database.db` | SQLite database to query |
+| `TEXT2SQL_LLM` | `fake` | `api` for a real model; `fake` is the CLI's offline demo (the web app always requires a real model) |
+| `TEXT2SQL_BASE_URL` | `http://localhost:11434/v1` | OpenAI-compatible API base URL |
+| `TEXT2SQL_MODEL` | – | Model name |
+| `TEXT2SQL_API_KEY` | – | API key (falls back to `OPENAI_API_KEY`) |
+| `TEXT2SQL_EMBEDDING` | `hashing` | `hashing`, `sentence-transformers` (requires the `[neural]` extra), or `api` |
+| `TEXT2SQL_EMBEDDING_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | Embedding model name |
+| `TEXT2SQL_EMBEDDING_BASE_URL` | – | Embeddings API base URL |
+| `TEXT2SQL_EMBEDDING_API_KEY` | – | Embeddings API key |
+| `TEXT2SQL_TOP_K` | `4` | Tables retrieved per question |
+| `TEXT2SQL_MAX_RETRIES` | `3` | Correction attempts after invalid SQL |
+| `TEXT2SQL_TRACE` | `traces/queries.jsonl` | JSONL trace file |
+| `TEXT2SQL_HISTORY` | `data/app.db` | Web app history and settings store |
 
-```bash
-set -a
-source .env
-set +a
+## Evaluation
 
-python -m text2sql.cli \
-  --question "List all customers from Canada. Return customer_id and name."
-```
-
-The `.env` file, local databases, and query traces are excluded from Git. API keys are
-never written to application traces.
-
-## Run the Experiments
-
-### Offline Pipeline Evaluation
-
-Use reference-query replay to verify retrieval, correction, validation, execution, and
-scoring without an API key:
-
-```bash
-python -m text2sql.cli --init-db --db data/evaluation.db
-python -m text2sql.cli \
-  --evaluate --smoke \
-  --db data/evaluation.db \
-  --output reports/local-oracle.json
-```
-
-### Schema-Scope Comparison
-
-Compare full-schema context with Top-K schema retrieval:
-
-```bash
-python -m text2sql.cli \
-  --ablation --smoke \
-  --db data/evaluation.db \
-  --output reports/local-ablation.json
-```
-
-### Real-Model Evaluation
-
-Load `.env`, then run the benchmark without reference-query replay:
-
-```bash
-python -m text2sql.cli \
-  --evaluate \
-  --db data/evaluation.db \
-  --output reports/local-real-model.json
-```
-
-The JSON output contains each question's retrieved tables, generated SQL, validation
-attempts, execution result, latency, and available token usage. Metric definitions and
-completed runs are documented in [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md).
-
-## Experiment Highlights
-
-### DeepSeek Real-Model Run
+A real-model run with `deepseek-flash` on 25 questions over the sample database (7 tables,
+1,939 records). Each generated query passed through the safety checks, ran against SQLite, and
+was compared with the result of a reference query.
 
 | Metric | Result |
 |---|---:|
-| Questions | 25 |
+| Correct execution result | **23/25 (92%)** |
+| Easy / medium / hard | 8/8 · 8/8 · 7/9 |
 | Valid on first attempt | 23/25 (92%) |
 | Valid after correction | 24/25 (96%) |
-| Correct execution result | 23/25 (92%) |
-| Validation recovery | 1/1 (100%) |
-| Mean end-to-end latency | 2.033 seconds |
+| Mean end-to-end latency | 2.03 s |
 
-### Schema-Scope Comparison
+This is one run on a small benchmark: it shows that the approach works but is not a precise
+accuracy estimate. Configuration, per-question artifacts, and metric definitions are in
+[docs/EXPERIMENTS.md](docs/EXPERIMENTS.md).
 
-| Metric | Full schema | Top-K=4 schema |
-|---|---:|---:|
-| Mean initial prompt characters | 3,271.0 | 2,396.6 |
-| Pipeline execution agreement | 25/25 | 23/25 |
+To reproduce:
 
-This comparison uses reference-query replay. It measures the effect of schema scope on
-context size and pipeline behavior, not model accuracy.
+```bash
+python -m text2sql.cli --init-db --db data/evaluation.db
 
-## Technical Implementation
+# Offline: replays reference queries to check the pipeline and scoring (no API key)
+python -m text2sql.cli --evaluate --smoke --db data/evaluation.db --output reports/local-oracle.json
 
-| Area | Implementation |
-|---|---|
-| Database | SQLite with a deterministic seven-table e-commerce dataset |
-| Schema retrieval | Pluggable embedding provider with cosine Top-K ranking |
-| Example retrieval | Schema-compatible filtering followed by similarity ranking |
-| Model interface | OpenAI-compatible HTTP provider |
-| SQL validation | Output normalization, SQLGlot AST checks, SQLite `EXPLAIN` |
-| Self-correction | Bounded error feedback and regeneration |
-| Safe execution | Read-only connection, authorizer, function allowlist, resource budgets |
-| Observability | JSONL traces, latency, prompt size, and token usage |
-| Evaluation | Execution-result comparison, schema recall, difficulty breakdown |
+# Compare full-schema context with Top-K retrieval (offline)
+python -m text2sql.cli --ablation --smoke --db data/evaluation.db --output reports/local-ablation.json
 
-The pipeline uses direct Python orchestration rather than LangChain or LlamaIndex,
-keeping each workflow stage and security boundary easy to test and inspect.
+# Real model: load your model settings first
+python -m text2sql.cli --evaluate --db data/evaluation.db --output reports/local-real-model.json
+```
 
-## Repository Layout
+## Development
+
+### Project Structure
 
 ```text
 text2sql/
-|-- agent/          # Three-stage workflow and correction loop
-|-- db/             # Schema, seed data, and protected execution
-|-- evaluation/     # Benchmark runner and metrics
-|-- generation/     # Prompts, model providers, and SQL generation
-|-- retrieval/      # Schema and few-shot retrieval
-`-- validation/     # SQL safety and validity checks
-
-tests/              # 33 automated tests
-reports/            # Reproducible experiment artifacts
-docs/EXPERIMENTS.md # Configurations, metrics, and measured results
+├── agent/          # Pipeline orchestration and the correction loop
+├── db/             # Schema introspection, sample data, read-only execution
+├── evaluation/     # Benchmark runner and metrics
+├── generation/     # Prompts, model providers, SQL generation
+├── retrieval/      # Schema and few-shot retrieval
+├── server/         # FastAPI app, settings runtime, history store, uploads
+└── validation/     # SQL safety and validity checks
+web/                # React + TypeScript frontend (Vite)
+tests/              # Python tests
+examples/databases/ # Demo databases with sample questions
+scripts/            # Developer scripts
+reports/            # Experiment artifacts
+docs/               # Experiment record
 ```
 
-## Dataset
+### Running Tests
 
-The demo database models customers, products, categories, suppliers, orders, order
-items, and payments. Its 1,939 deterministic records support filtering, ranking,
-aggregation, multi-table joins, subqueries, CTEs, refunds, historical prices, and
-payment-reconciliation questions.
+```bash
+python -m unittest discover -v        # Python: pipeline, safety checks, API, uploads
+cd web && corepack pnpm test          # Frontend: state, components, upload
+```
 
-## Technology
+The tests replace the language model with a scripted provider, so they need no API key. CI runs
+both suites on every push, with Python 3.11, 3.12, and 3.13.
 
-Python 3.11+ · SQLite · NumPy · SQLGlot · OpenAI-compatible API · unittest
+### Frontend Development
+
+Run the API without opening a browser, then start the Vite dev server, which proxies `/api` to
+port 8000:
+
+```bash
+text2sql-server --no-browser
+cd web && corepack pnpm dev
+```
+
+### Rebuilding the Demo Databases
+
+```bash
+python scripts/make_demo_databases.py
+```
+
+The output is deterministic: the script produces byte-identical files on every run.
+
+## Security Model
+
+Model output is treated as untrusted. A query must pass every layer before it reaches the database:
+
+| Layer | Protection |
+|---|---|
+| Static checks | SQLGlot AST analysis allows a single `SELECT`, restricts it to known tables, and checks join structure |
+| Compilation | SQLite `EXPLAIN` catches unknown tables or columns and syntax errors before execution |
+| Connection | Read-only mode (`mode=ro`, `query_only`), plus an authorizer that allowlists tables and functions |
+| Resource limits | Time and step budgets per query; at most 1,000 rows returned |
+| Correction | Ordinary errors are sent back to the model to fix; unsafe queries are rejected without retry |
+
+For the web app specifically:
+
+- **Separate stores.** History and settings live in `data/app.db`. The server refuses to use
+  that file as the query database, so saved settings cannot be read through SQL.
+- **Write-only API keys.** The server reports only whether a key is set and never returns it
+  to the browser. Keys are stored unencrypted in `data/app.db`, which is git-ignored.
+- **Upload checks.** Uploads are streamed with a size limit, verified by their SQLite header
+  and `PRAGMA quick_check`, and saved as a private copy under a server-generated name.
+- **Local only.** The server binds to `127.0.0.1` and has no authentication. It is a
+  single-user local tool and should not be exposed to a network as is.
+
+## Limitations
+
+- Only SQLite databases are supported.
+- Table descriptions and few-shot examples are written for the sample database. On uploaded
+  databases, the model has less context and answers may be less accurate.
+- Query history is shared across databases.
+- There are no user accounts. The app is meant for one person on one machine.
+
+## Tech Stack
+
+**Backend:** Python 3.11+, FastAPI, SQLite, SQLGlot, NumPy
+
+**Frontend:** React 18, TypeScript, Vite, TanStack Query, CodeMirror 6
+
+**Testing and CI:** unittest, Vitest, Testing Library, GitHub Actions

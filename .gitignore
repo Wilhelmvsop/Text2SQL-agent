@@ -1,7 +1,44 @@
-.venv/
-__pycache__/
-*.egg-info/
+# --- Secrets and local configuration ---------------------------------------
 .env
-data/*.db*
+.env.*
+!.env.example
+
+# --- Local data -------------------------------------------------------------
+# Query databases, uploads, and data/app.db (query history and saved settings,
+# including API keys entered in the web app).
+data/
 traces/
 reports/local-*
+
+# --- Personal notes ---------------------------------------------------------
+docs/PROJECT_INTRO.md
+
+# --- Python -----------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Frontend (pnpm is the package manager; see web/package.json) -----------
+web/node_modules/
+web/dist/
+web/package-lock.json
+web/yarn.lock
+web/*.tsbuildinfo
+web/coverage/
+
+# --- Logs, editors, and OS files -------------------------------------------
+*.log
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
